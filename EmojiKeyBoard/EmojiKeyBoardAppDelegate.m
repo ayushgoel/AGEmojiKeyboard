@@ -23,7 +23,7 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-  self.viewController = [[[EmojiKeyBoardViewController alloc] initWithNibName:@"EmojiKeyBoardViewController" bundle:nil] autorelease];
+  self.viewController = [[[EmojiKeyBoardViewController alloc] init] autorelease];
   self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

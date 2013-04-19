@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DDPageControl.h"
 
 @interface EmojiKeyBoardViewController : UIViewController
+
+@property (nonatomic, strong) DDPageControl *pageControl;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *takePhotoButton;
+@property (nonatomic, strong) UIView *selectFromGalleryButton;
+
 
 @end
