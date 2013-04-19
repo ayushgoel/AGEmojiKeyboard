@@ -11,10 +11,11 @@
 
 @interface EmojiKeyBoardViewController : UIViewController
 
+@property (nonatomic, strong) UISegmentedControl *segmentsBar;
 @property (nonatomic, strong) DDPageControl *pageControl;
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UIView *takePhotoButton;
-@property (nonatomic, strong) UIView *selectFromGalleryButton;
-
+@property (nonatomic, strong) UIButton *takePhotoButton;
+@property (nonatomic, strong) UIButton *selectFromGalleryButton;
+@property (nonatomic, strong) UIButton *doodleButton;
 
 @end

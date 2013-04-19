@@ -18,6 +18,9 @@
 		2A3D5EAA171EBE42005DC720 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3D5EA9171EBE42005DC720 /* Default-568h@2x.png */; };
 		2A3D5EAD171EBE42005DC720 /* EmojiKeyBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D5EAC171EBE42005DC720 /* EmojiKeyBoardViewController.m */; };
 		2A97A0EB1720072400CE222F /* DDPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A97A0EA1720072400CE222F /* DDPageControl.m */; };
+		2ACB3FBC172141FB00918598 /* capturephoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ACB3FBB172141FB00918598 /* capturephoto.png */; };
+		2ACB3FBE17214E8100918598 /* bg_bottom_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ACB3FBD17214E8100918598 /* bg_bottom_button.png */; };
+		2ACB3FC117217B4C00918598 /* choose_existing.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ACB3FC017217B4C00918598 /* choose_existing.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		2A3D5EAC171EBE42005DC720 /* EmojiKeyBoardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiKeyBoardViewController.m; sourceTree = "<group>"; };
 		2A97A0E91720072400CE222F /* DDPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPageControl.h; sourceTree = "<group>"; };
 		2A97A0EA1720072400CE222F /* DDPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPageControl.m; sourceTree = "<group>"; };
+		2ACB3FBB172141FB00918598 /* capturephoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = capturephoto.png; sourceTree = "<group>"; };
+		2ACB3FBD17214E8100918598 /* bg_bottom_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_bottom_button.png; sourceTree = "<group>"; };
+		2ACB3FC017217B4C00918598 /* choose_existing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choose_existing.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +95,7 @@
 				2A3D5EAB171EBE42005DC720 /* EmojiKeyBoardViewController.h */,
 				2A3D5EAC171EBE42005DC720 /* EmojiKeyBoardViewController.m */,
 				2A3D5E9A171EBE42005DC720 /* Supporting Files */,
+				2ACB3FBA1721274200918598 /* Assets */,
 			);
 			path = EmojiKeyBoard;
 			sourceTree = "<group>";
@@ -107,6 +114,16 @@
 				2A97A0EA1720072400CE222F /* DDPageControl.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2ACB3FBA1721274200918598 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				2ACB3FBD17214E8100918598 /* bg_bottom_button.png */,
+				2ACB3FC017217B4C00918598 /* choose_existing.png */,
+				2ACB3FBB172141FB00918598 /* capturephoto.png */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +182,9 @@
 				2A3D5EA6171EBE42005DC720 /* Default.png in Resources */,
 				2A3D5EA8171EBE42005DC720 /* Default@2x.png in Resources */,
 				2A3D5EAA171EBE42005DC720 /* Default-568h@2x.png in Resources */,
+				2ACB3FBC172141FB00918598 /* capturephoto.png in Resources */,
+				2ACB3FBE17214E8100918598 /* bg_bottom_button.png in Resources */,
+				2ACB3FC117217B4C00918598 /* choose_existing.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
