@@ -55,6 +55,7 @@
 {
 	onColor = nil ;
 	offColor = nil ;
+  [super dealloc];
 }
 
 

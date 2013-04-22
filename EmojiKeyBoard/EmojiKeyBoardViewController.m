@@ -21,6 +21,9 @@
 @synthesize doodleButton = doodleButton_;
 
 #define BUTTON_HEIGHT 80
+#define BUTTON_TEXT_FONT @"Helvetica Neue"
+#define BUTTON_TEXT_FONT_SIZE 12
+
 - (UIButton *)buttonWithImage:(UIImage *)image title:(NSString *)title atPos:(NSUInteger)pos{
   UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
   CGFloat buttonWidth = self.view.frame.size.width / 3;
@@ -30,7 +33,10 @@
                             BUTTON_HEIGHT);
   [button setBackgroundImage:[UIImage imageNamed:@"bg_bottom_button.png"] forState:UIControlStateNormal];
   [button setTitle:title forState:UIControlStateNormal];
-  button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+  button.titleLabel.font = [UIFont fontWithName:BUTTON_TEXT_FONT size:BUTTON_TEXT_FONT_SIZE];
+  button.titleLabel.textColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.9 alpha:1.0];
+  button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.15];
+
   [button setTitleColor:[UIColor colorWithWhite:0.9 alpha:1.0] forState:UIControlStateNormal];
   [button setImage:image forState:UIControlStateNormal];
 
