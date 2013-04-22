@@ -61,6 +61,24 @@
   self.view.backgroundColor = [UIColor whiteColor];
   [super viewDidLoad];
 
+  NSArray *segmentElements = @[[UIImage imageNamed:@"recent_n.png"], [UIImage imageNamed:@"face_n.png"], [UIImage imageNamed:@"bell_n.png"], [UIImage imageNamed:@"flower_n.png"], [UIImage imageNamed:@"car_n.png"], [UIImage imageNamed:@"characters_n.png"]];
+  self.segmentsBar = [[UISegmentedControl alloc] initWithItems:segmentElements];
+  self.segmentsBar.frame = CGRectMake(0, 100, self.view.frame.size.width, self.segmentsBar.frame.size.height);
+  [self.segmentsBar setDividerImage:[UIImage imageNamed:@"tab_bg.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+  // fixme: when setting dividers, it places it on the current segment and the next one
+  // this misaligns the image in the current as well as the next segment
+
+//  [self.segmentsBar setDividerImage:[UIImage imageNamed:@"corner_left.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+//  [self.segmentsBar setDividerImage:[UIImage imageNamed:@"corner_right.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+
+  self.segmentsBar.segmentedControlStyle = UISegmentedControlStyleBar;
+  self.segmentsBar.tintColor = [UIColor whiteColor];
+  [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"corner_left.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+  [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"tab_bg.png"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+
+  [self.view addSubview:self.segmentsBar];
+
+  // Add buttons at bottom
   self.takePhotoButton = [self buttonWithImage:[UIImage imageNamed:@"capturephoto.png"] title:@"Take a Photo" atPos:0];
   self.selectFromGalleryButton = [self buttonWithImage:[UIImage imageNamed:@"choose_existing.png"] title:@"Choose Existing" atPos:1];
   self.doodleButton = [self buttonWithImage:[UIImage imageNamed:@"capturephoto.png"] title:@"Create Doodle" atPos:2];
