@@ -75,8 +75,22 @@
   self.segmentsBar.tintColor = [UIColor whiteColor];
   [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"corner_left.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
   [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"tab_bg.png"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+  self.segmentsBar.selectedSegmentIndex = 0;
 
   [self.view addSubview:self.segmentsBar];
+
+  self.pageControl = [[[DDPageControl alloc] init] autorelease];
+  [self.pageControl setCenter:CGPointMake(self.view.center.x, 30)];
+  [self.pageControl setNumberOfPages:10];
+  [self.pageControl setCurrentPage:1];
+  [self.pageControl setOnColor:[UIColor darkGrayColor]];
+  [self.pageControl setOffColor:[UIColor lightGrayColor]];
+  [self.pageControl setIndicatorDiameter: 4.8f];
+  [self.pageControl setIndicatorSpace:11.0f];
+  [self.pageControl setHidesForSinglePage:YES];
+  [self.pageControl setDefersCurrentPageDisplay:YES];
+  [self.pageControl addTarget:self action:@selector(pageControlTouched:) forControlEvents:UIControlEventValueChanged];
+  [self.view addSubview:self.pageControl];
 
   // Add buttons at bottom
   self.takePhotoButton = [self buttonWithImage:[UIImage imageNamed:@"capturephoto.png"] title:@"Take a Photo" atPos:0];
@@ -86,6 +100,10 @@
   [self.view addSubview:self.selectFromGalleryButton];
   [self.view addSubview:self.doodleButton];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)pageControlTouched:(id)sender {
+  [self.pageControl updateCurrentPageDisplay];
 }
 
 - (void)didReceiveMemoryWarning
