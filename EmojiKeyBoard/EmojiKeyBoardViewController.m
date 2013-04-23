@@ -8,8 +8,26 @@
 
 #import "EmojiKeyBoardViewController.h"
 
-@interface EmojiKeyBoardViewController ()
+@interface Sample : UIViewController
+@property (nonatomic, retain) UILabel *label;
+@end
+@implementation Sample
 
+- (id)init {
+  self = [super init];
+  if (self) {
+    self.label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 50)] autorelease];
+    self.label.text = @"Text";
+    self.label.textColor = [UIColor grayColor];
+    [self.view addSubview:self.label];
+  }
+  return self;
+}
+
+@end
+
+@interface EmojiKeyBoardViewController () <UIScrollViewDelegate>
+@property (nonatomic, retain) NSMutableArray *viewControllers;
 @end
 
 @implementation EmojiKeyBoardViewController
@@ -19,6 +37,7 @@
 @synthesize takePhotoButton = takePhotoButton_;
 @synthesize selectFromGalleryButton = selectFromGalleryButton_;
 @synthesize doodleButton = doodleButton_;
+@synthesize viewControllers = viewControllers_;
 
 #define BUTTON_HEIGHT 80
 #define BUTTON_TEXT_FONT @"Helvetica Neue"
@@ -79,10 +98,30 @@
 
   [self.view addSubview:self.segmentsBar];
 
+  NSUInteger numberOfPages = 10;
+
+  self.scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, 100)] autorelease];
+  self.viewControllers = [[NSMutableArray alloc] init];
+  for (NSUInteger i = 0; i < numberOfPages; i++)
+  {
+		[self.viewControllers addObject:[NSNull null]];
+  }
+  // a page is the width of the scroll view
+  self.scrollView.pagingEnabled = YES;
+  self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.frame) * numberOfPages, CGRectGetHeight(self.scrollView.frame));
+  self.scrollView.showsHorizontalScrollIndicator = NO;
+  self.scrollView.showsVerticalScrollIndicator = NO;
+  self.scrollView.scrollsToTop = NO;
+  self.scrollView.delegate = self;
+
+  [self loadScrollViewWithPage:0];
+  [self loadScrollViewWithPage:1];
+  [self.view addSubview:self.scrollView];
+
   self.pageControl = [[[DDPageControl alloc] init] autorelease];
   [self.pageControl setCenter:CGPointMake(self.view.center.x, 30)];
   [self.pageControl setNumberOfPages:10];
-  [self.pageControl setCurrentPage:1];
+  [self.pageControl setCurrentPage:0];
   [self.pageControl setOnColor:[UIColor darkGrayColor]];
   [self.pageControl setOffColor:[UIColor lightGrayColor]];
   [self.pageControl setIndicatorDiameter: 4.8f];
@@ -102,14 +141,79 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)pageControlTouched:(id)sender {
-  [self.pageControl updateCurrentPageDisplay];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)pageControlTouched:(id)sender {
+  NSLog(@"control touched");
+  [self changePage];
+}
+
+- (void)loadScrollViewWithPage:(NSUInteger)page {
+  NSLog(@"load scroll view %d", page);
+
+  //fixme: numberOfPages to be a property of viewController
+  if (page >= 10) {
+    return;
+  }
+
+  // replace the placeholder if necessary
+  Sample *controller = [self.viewControllers objectAtIndex:page];
+  if ((NSNull *)controller == [NSNull null])
+  {
+    controller = [[Sample alloc] init];
+    [self.viewControllers replaceObjectAtIndex:page withObject:controller];
+  }
+
+  // add the controller's view to the scroll view
+  if (controller.view.superview == nil)
+  {
+    CGRect frame = self.scrollView.frame;
+    frame.origin.x = CGRectGetWidth(frame) * page;
+    frame.origin.y = 0;
+    controller.view.frame = frame;
+
+    [self addChildViewController:controller];
+    [self.scrollView addSubview:controller.view];
+    [controller didMoveToParentViewController:self];
+  }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+  NSLog(@"decelarating");
+
+  // switch the indicator when more than 50% of the previous/next page is visible
+  CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
+  NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+  self.pageControl.currentPage = page;
+  [self changePage];
+}
+
+- (void)changePage {
+  [self.pageControl updateCurrentPageDisplay];
+  [self gotoPage:YES];
+}
+
+- (void)gotoPage:(BOOL)animated
+{
+  NSLog(@"goto");
+
+  NSInteger page = self.pageControl.currentPage;
+
+  // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
+  [self loadScrollViewWithPage:page - 1];
+  [self loadScrollViewWithPage:page];
+  [self loadScrollViewWithPage:page + 1];
+
+	// update the scroll view to the appropriate page
+  CGRect bounds = self.scrollView.bounds;
+  bounds.origin.x = CGRectGetWidth(bounds) * page;
+  bounds.origin.y = 0;
+  [self.scrollView scrollRectToVisible:bounds animated:animated];
 }
 
 @end
