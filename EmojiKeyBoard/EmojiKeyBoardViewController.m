@@ -7,24 +7,7 @@
 //
 
 #import "EmojiKeyBoardViewController.h"
-
-@interface Sample : UIViewController
-@property (nonatomic, retain) UILabel *label;
-@end
-@implementation Sample
-
-- (id)init {
-  self = [super init];
-  if (self) {
-    self.label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 50)] autorelease];
-    self.label.text = @"Text";
-    self.label.textColor = [UIColor grayColor];
-    [self.view addSubview:self.label];
-  }
-  return self;
-}
-
-@end
+#import "KeyBoardViewController.h"
 
 @interface EmojiKeyBoardViewController () <UIScrollViewDelegate>
 @property (nonatomic, retain) NSMutableArray *viewControllers;
@@ -100,7 +83,7 @@
 
   NSUInteger numberOfPages = 10;
 
-  self.scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, 100)] autorelease];
+  self.scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, 125)] autorelease];
   self.viewControllers = [[NSMutableArray alloc] init];
   for (NSUInteger i = 0; i < numberOfPages; i++)
   {
@@ -161,10 +144,10 @@
   }
 
   // replace the placeholder if necessary
-  Sample *controller = [self.viewControllers objectAtIndex:page];
+  KeyBoardViewController *controller = [self.viewControllers objectAtIndex:page];
   if ((NSNull *)controller == [NSNull null])
   {
-    controller = [[Sample alloc] init];
+    controller = [[KeyBoardViewController alloc] init];
     [self.viewControllers replaceObjectAtIndex:page withObject:controller];
   }
 
