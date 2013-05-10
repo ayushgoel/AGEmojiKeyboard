@@ -11,8 +11,4 @@
 
 @interface EmojiKeyBoardView : UIView
 
-@property (nonatomic, strong) UISegmentedControl *segmentsBar;
-@property (nonatomic, strong) DDPageControl *pageControl;
-@property (nonatomic, strong) UIScrollView *scrollView;
-
 @end
