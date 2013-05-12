@@ -7,6 +7,10 @@
 //
 
 #import "EmojiKeyBoardView.h"
+#import "EmojiPageView.h"
+
+#define BUTTON_WIDTH 35
+#define BUTTON_HEIGHT 35
 
 @interface EmojiKeyBoardView ()
 
@@ -80,7 +84,19 @@
                                         pageControlSize.height);
 
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.frame) * numberOfPages, CGRectGetHeight(self.scrollView.frame));
-    self.scrollView.backgroundColor = [UIColor blackColor];
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.showsVerticalScrollIndicator = NO;
+
+    NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.frame.size];
+    NSUInteger columns = [self numberOfButtonsInARowForFrameSize:self.scrollView.frame.size];
+
+    EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame))
+                                                         buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
+                                                            columns:columns
+                                                               rows:rows] autorelease];
+    [pageView setButtonTexts:[self emojiTextsForCategory:@"Nature" fromIndex:0 toIndex:rows * columns]];
+    [self.scrollView addSubview:pageView];
     [self addSubview:self.scrollView];
   }
   return self;
@@ -94,19 +110,31 @@
   NSLog(@"%d", sender.currentPage);
 }
 
-#define BUTTON_WIDTH 35
-#define BUTTON_HEIGHT 35
+- (NSUInteger)numberOfButtonsInARowForFrameSize:(CGSize)frameSize {
+  return (NSUInteger)floor(frameSize.width / BUTTON_WIDTH);
+}
+
+- (NSUInteger)numberOfRowsForFrameSize:(CGSize)frameSize {
+  return (NSUInteger)floor(frameSize.height / BUTTON_HEIGHT);
+}
 
 - (NSUInteger)numberOfPagesForCategory:(NSString *)category inFrame:(CGSize)frameSize {
   NSUInteger emojiCount = [[self.emojis objectForKey:category] count];
 
-  NSUInteger numberOfRows = (NSUInteger)floor(frameSize.height / BUTTON_HEIGHT);
-  NSUInteger numberOfColumns = (NSUInteger)floor(frameSize.width / BUTTON_WIDTH);
+  NSUInteger numberOfRows = [self numberOfRowsForFrameSize:frameSize];
+  NSUInteger numberOfColumns = [self numberOfButtonsInARowForFrameSize:frameSize];
   NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns) - 1;
 
   NSUInteger retVal = (NSUInteger)ceil((float)emojiCount / numberOfEmojisOnAPage);
   NSLog(@"%d %d %d :: %d", numberOfRows, numberOfColumns, emojiCount, retVal);
   return retVal;
+}
+
+- (NSMutableArray *)emojiTextsForCategory:(NSString *)category fromIndex:(NSUInteger)start toIndex:(NSUInteger)end {
+  NSArray *emojis = [self.emojis objectForKey:category];
+  end = ([emojis count] - 1 > end)? end : [emojis count] - 1;
+  NSIndexSet *index = [[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(start, end-start)] autorelease];
+  return [[emojis objectsAtIndexes:index] mutableCopy];
 }
 
 /*
