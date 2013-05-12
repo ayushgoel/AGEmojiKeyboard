@@ -10,13 +10,28 @@
 
 @interface EmojiKeyBoardView ()
 
-@property (nonatomic, strong) UISegmentedControl *segmentsBar;
-@property (nonatomic, strong) DDPageControl *pageControl;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, retain) UISegmentedControl *segmentsBar;
+@property (nonatomic, retain) DDPageControl *pageControl;
+@property (nonatomic, retain) UIScrollView *scrollView;
+@property (nonatomic, retain) NSDictionary *emojis;
 
 @end
 
 @implementation EmojiKeyBoardView
+@synthesize segmentsBar = segmentsBar_;
+@synthesize pageControl = pageControl_;
+@synthesize scrollView = scrollView_;
+@synthesize emojis = emojis_;
+
+- (NSDictionary *)emojis {
+  if (!emojis_) {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"EmojisList"
+                                                          ofType:@"plist"];
+    emojis_ = [[NSDictionary dictionaryWithContentsOfFile:plistPath] copy];
+    NSLog(@"File read");
+  }
+  return emojis_;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -41,7 +56,6 @@
     self.pageControl.onColor = [UIColor darkGrayColor];
     self.pageControl.offColor = [UIColor lightGrayColor];
     self.pageControl.indicatorDiameter = 6.0f;
-    self.pageControl.numberOfPages = 3;
     self.pageControl.currentPage = 0;
     self.pageControl.hidesForSinglePage = YES;
     CGSize pageControlSize = [self.pageControl sizeForNumberOfPages:3];
@@ -51,6 +65,23 @@
                                         pageControlSize.height);
     [self.pageControl addTarget:self action:@selector(pageControlTouched:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:self.pageControl];
+
+    self.scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0,
+                                                                      CGRectGetHeight(self.segmentsBar.frame),
+                                                                      CGRectGetWidth(self.frame),
+                                                                      CGRectGetHeight(self.frame) - CGRectGetHeight(self.segmentsBar.frame) - pageControlSize.height)] autorelease];
+
+    NSUInteger numberOfPages = [self numberOfPagesForCategory:@"Nature" inFrame:self.scrollView.frame.size];
+    self.pageControl.numberOfPages = numberOfPages;
+    pageControlSize = [self.pageControl sizeForNumberOfPages:numberOfPages];
+    self.pageControl.frame = CGRectMake((self.frame.size.width - pageControlSize.width) / 2,
+                                        self.frame.size.height - pageControlSize.height,
+                                        pageControlSize.width,
+                                        pageControlSize.height);
+
+    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.frame) * numberOfPages, CGRectGetHeight(self.scrollView.frame));
+    self.scrollView.backgroundColor = [UIColor blackColor];
+    [self addSubview:self.scrollView];
   }
   return self;
 }
@@ -61,6 +92,21 @@
 
 - (void)pageControlTouched:(DDPageControl *)sender {
   NSLog(@"%d", sender.currentPage);
+}
+
+#define BUTTON_WIDTH 35
+#define BUTTON_HEIGHT 35
+
+- (NSUInteger)numberOfPagesForCategory:(NSString *)category inFrame:(CGSize)frameSize {
+  NSUInteger emojiCount = [[self.emojis objectForKey:category] count];
+
+  NSUInteger numberOfRows = (NSUInteger)floor(frameSize.height / BUTTON_HEIGHT);
+  NSUInteger numberOfColumns = (NSUInteger)floor(frameSize.width / BUTTON_WIDTH);
+  NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns) - 1;
+
+  NSUInteger retVal = (NSUInteger)ceil((float)emojiCount / numberOfEmojisOnAPage);
+  NSLog(@"%d %d %d :: %d", numberOfRows, numberOfColumns, emojiCount, retVal);
+  return retVal;
 }
 
 /*
