@@ -27,10 +27,21 @@
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
   if (buttonTexts_ != buttonTexts) {
+
+    if (!buttonTexts_) {
+      buttonTexts_ = [[[NSMutableArray alloc] initWithCapacity:self.rows * self.columns] autorelease];
+    }
+
     if ([buttonTexts_ count] == [buttonTexts count]) {
       // just reset text on each button
       for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
-        [[self.buttons objectAtIndex:i] setTitle:[buttonTexts objectAtIndex:i] forState:UIControlStateNormal];
+        UIButton *button = [self.buttons objectAtIndex:i];
+        if (!button) {
+          button = [self createButtonAtIndex:i];
+          [self addSubview:button];
+        }
+        [button setTitle:buttonTexts[i] forState:UIControlStateNormal];
+        buttonTexts_[i] = buttonTexts[i];
       }
     } else if ([buttonTexts_ count] == 0) {
       buttonTexts_ = nil;
@@ -43,9 +54,16 @@
       }
     } else {
       //fixme: reset the array and recreate it
+      [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
       self.buttons = nil;
       buttonTexts_ = nil;
-      self.buttonTexts = buttonTexts;
+      buttonTexts_ = [buttonTexts retain];
+      for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
+        UIButton *button = [self createButtonAtIndex:i];
+        [button setTitle:[buttonTexts objectAtIndex:i] forState:UIControlStateNormal];
+        [self.buttons addObject:button];
+        [self addSubview:button];
+      }
     }
   }
 }
@@ -75,6 +93,7 @@
     self.buttonSize = buttonSize;
     self.columns = columns;
     self.rows = rows;
+    self.buttons = [[[NSMutableArray alloc] initWithCapacity:rows * columns] autorelease];
     // Initialization code
   }
   return self;
