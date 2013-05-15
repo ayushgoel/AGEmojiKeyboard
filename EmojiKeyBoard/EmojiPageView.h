@@ -12,4 +12,5 @@
 
 - (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize columns:(NSUInteger)columns rows:(NSUInteger)rows;
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts;
+
 @end

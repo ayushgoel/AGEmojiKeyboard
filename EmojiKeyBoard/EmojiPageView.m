@@ -28,6 +28,15 @@
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
   if (buttonTexts_ != buttonTexts) {
 
+//    for (NSString *t in buttonTexts) {
+//      NSLog(@"BT : %@", t);
+//    }
+//    for (NSString *t in buttonTexts_) {
+//      NSLog(@"BTSS : %@", t);
+//    }
+//    for (UIButton *button in self.buttons) {
+//      NSLog(@"button : %@", button.titleLabel.text);
+//    }
     if (!buttonTexts_) {
       buttonTexts_ = [[[NSMutableArray alloc] initWithCapacity:self.rows * self.columns] autorelease];
     }
@@ -56,6 +65,7 @@
       //fixme: reset the array and recreate it
       [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
       self.buttons = nil;
+      self.buttons = [[[NSMutableArray alloc] initWithCapacity:self.rows * self.columns] autorelease];
       buttonTexts_ = nil;
       buttonTexts_ = [buttonTexts retain];
       for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {

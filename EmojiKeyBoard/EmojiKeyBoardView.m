@@ -40,55 +40,6 @@
   return emojis_;
 }
 
-- (void)setPageViewForScrollView:(UIScrollView *)scrollView atIndex:(NSUInteger)index {
-
-  if (index >= self.pageControl.numberOfPages) {
-    return;
-  }
-  for (EmojiPageView *page in self.pageViews) {
-    if ((page.frame.origin.x / CGRectGetWidth(scrollView.frame)) == index) {
-      return;
-    }
-  }
-  EmojiPageView *pageView = nil;
-  for (EmojiPageView *page in self.pageViews) {
-    NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(scrollView.frame);
-    if (abs(pageNumber - self.pageControl.currentPage) > 1) {
-      pageView = page;
-      break;
-    }
-  }
-  if (!pageView) {
-    pageView = [self.pageViews objectAtIndex:index % 3];
-  }
-
-  NSUInteger rows = [self numberOfRowsForFrameSize:scrollView.frame.size];
-  NSUInteger columns = [self numberOfButtonsInARowForFrameSize:scrollView.frame.size];
-  NSUInteger startingIndex = index * rows * columns;
-  NSMutableArray *buttonTexts = [self emojiTextsForCategory:self.category fromIndex:startingIndex toIndex:startingIndex + rows * columns];
-  [pageView setButtonTexts:buttonTexts];
-  pageView.frame = CGRectMake(index * CGRectGetWidth(scrollView.frame), 0, CGRectGetWidth(scrollView.frame), CGRectGetHeight(scrollView.frame));
-}
-
-- (void)setPage:(NSInteger)page {
-  [self setPageViewForScrollView:self.scrollView atIndex:page - 1];
-  [self setPageViewForScrollView:self.scrollView atIndex:page];
-  [self setPageViewForScrollView:self.scrollView atIndex:page + 1];
-}
-
-// since we have only 3 pages, can't use didEndDecelerating delegate call.
-// The user can scroll more than one page in one go.
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-  NSInteger newPageNumber = scrollView.bounds.origin.x / CGRectGetWidth(scrollView.frame);
-  NSLog(@"Scrolled to : %d", newPageNumber);
-  if (self.pageControl.currentPage == newPageNumber) {
-    return;
-  }
-  self.pageControl.currentPage = newPageNumber;
-  [self setPage:self.pageControl.currentPage];
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
@@ -153,7 +104,7 @@
 
 - (void)createPages {
   NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.frame.size];
-  NSUInteger columns = [self numberOfButtonsInARowForFrameSize:self.scrollView.frame.size];
+  NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.frame.size];
 
   self.pageViews = [[NSMutableArray alloc] initWithCapacity:3];
   for (int i=0; i<3; ++i) {
@@ -164,9 +115,10 @@
     [self.pageViews addObject:pageView];
     [self.scrollView addSubview:pageView];
   }
-
   [self setPage:1];
 }
+
+#pragma mark event handlers
 
 - (void)categoryChangedViaSegmentsBar:(UISegmentedControl *)sender {
   NSLog(@"%d", sender.selectedSegmentIndex);
@@ -191,7 +143,78 @@
   [self.scrollView scrollRectToVisible:bounds animated:YES];
 }
 
-- (NSUInteger)numberOfButtonsInARowForFrameSize:(CGSize)frameSize {
+// since we have only 3 pages, can't use didEndDecelerating delegate call.
+// The user can scroll more than one page in one go.
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+  CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
+  NSInteger newPageNumber = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+//  NSLog(@"Scrolled to : %d %f", newPageNumber, scrollView.contentOffset.x);
+  if (self.pageControl.currentPage == newPageNumber) {
+    return;
+  }
+  self.pageControl.currentPage = newPageNumber;
+  [self setPage:self.pageControl.currentPage];
+}
+
+#pragma mark change a page on scrollView
+
+- (BOOL)requireToSetPageViewForIndex:(NSUInteger)index {
+  if (index >= self.pageControl.numberOfPages) {
+    return NO;
+  }
+  for (EmojiPageView *page in self.pageViews) {
+    if ((page.frame.origin.x / CGRectGetWidth(self.scrollView.frame)) == index) {
+      return NO;
+    }
+  }
+  return YES;
+}
+
+- (EmojiPageView *)availablePageViewInScrollView:(UIScrollView *)scrollView atIndex:(NSUInteger)index {
+  EmojiPageView *pageView = nil;
+  for (EmojiPageView *page in self.pageViews) {
+    NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(scrollView.frame);
+    if ((abs(pageNumber - self.pageControl.currentPage) > 1) ||
+        (page.frame.origin.x == -1)){
+      pageView = page;
+      break;
+    }
+  }
+  if (!pageView) {
+    pageView = [self.pageViews objectAtIndex:index % 3];
+  }
+  return pageView;
+}
+
+- (void)setPageViewForScrollView:(UIScrollView *)scrollView atIndex:(NSUInteger)index {
+
+  if (![self requireToSetPageViewForIndex:index]) {
+    return;
+  }
+
+  EmojiPageView *pageView = [self availablePageViewInScrollView:scrollView atIndex:index];
+
+  NSUInteger rows = [self numberOfRowsForFrameSize:scrollView.frame.size];
+  NSUInteger columns = [self numberOfColumnsForFrameSize:scrollView.frame.size];
+  NSUInteger startingIndex = index * rows * columns;
+  NSMutableArray *buttonTexts = [self emojiTextsForCategory:self.category
+                                                  fromIndex:startingIndex
+                                                    toIndex:(startingIndex + rows * columns)];
+  NSLog(@"Setting page at index %d", index);
+  [pageView setButtonTexts:buttonTexts];
+  pageView.frame = CGRectMake(index * CGRectGetWidth(scrollView.frame), 0, CGRectGetWidth(scrollView.frame), CGRectGetHeight(scrollView.frame));
+}
+
+- (void)setPage:(NSInteger)page {
+  [self setPageViewForScrollView:self.scrollView atIndex:page - 1];
+  [self setPageViewForScrollView:self.scrollView atIndex:page];
+  [self setPageViewForScrollView:self.scrollView atIndex:page + 1];
+}
+
+#pragma mark data methods
+
+- (NSUInteger)numberOfColumnsForFrameSize:(CGSize)frameSize {
   return (NSUInteger)floor(frameSize.width / BUTTON_WIDTH);
 }
 
@@ -201,9 +224,8 @@
 
 - (NSUInteger)numberOfPagesForCategory:(NSString *)category inFrame:(CGSize)frameSize {
   NSUInteger emojiCount = [[self.emojis objectForKey:category] count];
-
   NSUInteger numberOfRows = [self numberOfRowsForFrameSize:frameSize];
-  NSUInteger numberOfColumns = [self numberOfButtonsInARowForFrameSize:frameSize];
+  NSUInteger numberOfColumns = [self numberOfColumnsForFrameSize:frameSize];
   NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns);
 
   NSUInteger retVal = (NSUInteger)ceil((float)emojiCount / numberOfEmojisOnAPage);
