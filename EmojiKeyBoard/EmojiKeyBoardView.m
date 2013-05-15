@@ -19,7 +19,7 @@
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) NSDictionary *emojis;
 @property (nonatomic, retain) NSMutableArray *pageViews;
-
+@property (nonatomic, retain) NSString *category;
 @end
 
 @implementation EmojiKeyBoardView
@@ -28,6 +28,7 @@
 @synthesize scrollView = scrollView_;
 @synthesize emojis = emojis_;
 @synthesize pageViews = pageViews_;
+@synthesize category = category_;
 
 - (NSDictionary *)emojis {
   if (!emojis_) {
@@ -45,7 +46,7 @@
     return;
   }
   for (EmojiPageView *page in self.pageViews) {
-    if (((page.frame.origin.x / CGRectGetWidth(scrollView.frame)) == index) && (index != 0)) {
+    if ((page.frame.origin.x / CGRectGetWidth(scrollView.frame)) == index) {
       return;
     }
   }
@@ -64,7 +65,7 @@
   NSUInteger rows = [self numberOfRowsForFrameSize:scrollView.frame.size];
   NSUInteger columns = [self numberOfButtonsInARowForFrameSize:scrollView.frame.size];
   NSUInteger startingIndex = index * rows * columns;
-  NSMutableArray *buttonTexts = [self emojiTextsForCategory:@"Nature" fromIndex:startingIndex toIndex:startingIndex + rows * columns];
+  NSMutableArray *buttonTexts = [self emojiTextsForCategory:self.category fromIndex:startingIndex toIndex:startingIndex + rows * columns];
   [pageView setButtonTexts:buttonTexts];
   pageView.frame = CGRectMake(index * CGRectGetWidth(scrollView.frame), 0, CGRectGetWidth(scrollView.frame), CGRectGetHeight(scrollView.frame));
 }
@@ -75,8 +76,12 @@
   [self setPageViewForScrollView:self.scrollView atIndex:page + 1];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+// since we have only 3 pages, can't use didEndDecelerating delegate call.
+// The user can scroll more than one page in one go.
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
   NSInteger newPageNumber = scrollView.bounds.origin.x / CGRectGetWidth(scrollView.frame);
+  NSLog(@"Scrolled to : %d", newPageNumber);
   if (self.pageControl.currentPage == newPageNumber) {
     return;
   }
@@ -88,6 +93,9 @@
 {
   self = [super initWithFrame:frame];
   if (self) {
+    // initialize category
+    self.category = @"People";
+
     self.segmentsBar = [[[UISegmentedControl alloc] initWithItems:@[
                          [UIImage imageNamed:@"recent_n.png"],
                          [UIImage imageNamed:@"face_n.png"],
@@ -100,6 +108,7 @@
     self.segmentsBar.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentsBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.segmentsBar.tintColor = [UIColor whiteColor];
+    self.segmentsBar.selectedSegmentIndex = 1;
     [self.segmentsBar addTarget:self action:@selector(categoryChangedViaSegmentsBar:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:self.segmentsBar];
 
@@ -122,7 +131,7 @@
                                                                       CGRectGetWidth(self.frame),
                                                                       CGRectGetHeight(self.frame) - CGRectGetHeight(self.segmentsBar.frame) - pageControlSize.height)] autorelease];
 
-    NSUInteger numberOfPages = [self numberOfPagesForCategory:@"Nature" inFrame:self.scrollView.frame.size];
+    NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category inFrame:self.scrollView.frame.size];
     self.pageControl.numberOfPages = numberOfPages;
     pageControlSize = [self.pageControl sizeForNumberOfPages:numberOfPages];
     self.pageControl.frame = CGRectMake((self.frame.size.width - pageControlSize.width) / 2,
@@ -136,27 +145,41 @@
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.delegate = self;
 
-    NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.frame.size];
-    NSUInteger columns = [self numberOfButtonsInARowForFrameSize:self.scrollView.frame.size];
-
-    self.pageViews = [[NSMutableArray alloc] initWithCapacity:3];
-    for (int i=0; i<3; ++i) {
-      EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame))
-                                                           buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
-                                                              columns:columns
-                                                                 rows:rows] autorelease];
-      [self.pageViews addObject:pageView];
-      [self.scrollView addSubview:pageView];
-    }
-
-    [self setPage:1];
+    [self createPages];
     [self addSubview:self.scrollView];
   }
   return self;
 }
 
+- (void)createPages {
+  NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.frame.size];
+  NSUInteger columns = [self numberOfButtonsInARowForFrameSize:self.scrollView.frame.size];
+
+  self.pageViews = [[NSMutableArray alloc] initWithCapacity:3];
+  for (int i=0; i<3; ++i) {
+    EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(-1, 0, CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame))
+                                                         buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
+                                                            columns:columns
+                                                               rows:rows] autorelease];
+    [self.pageViews addObject:pageView];
+    [self.scrollView addSubview:pageView];
+  }
+
+  [self setPage:1];
+}
+
 - (void)categoryChangedViaSegmentsBar:(UISegmentedControl *)sender {
   NSLog(@"%d", sender.selectedSegmentIndex);
+  NSArray *categoryList = @[@"People", @"Objects", @"Nature", @"Places", @"Symbols"];
+  self.category = categoryList[sender.selectedSegmentIndex - 1];
+  self.pageControl.currentPage = 0;
+  NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category inFrame:self.scrollView.frame.size];
+  self.pageControl.numberOfPages = numberOfPages;
+  self.pageViews = nil;
+  [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  self.scrollView.contentOffset = CGPointMake(0, 0);
+  self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.frame) * numberOfPages, CGRectGetHeight(self.scrollView.frame));
+  [self createPages];
 }
 
 - (void)pageControlTouched:(DDPageControl *)sender {
@@ -181,7 +204,7 @@
 
   NSUInteger numberOfRows = [self numberOfRowsForFrameSize:frameSize];
   NSUInteger numberOfColumns = [self numberOfButtonsInARowForFrameSize:frameSize];
-  NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns) - 1;
+  NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns);
 
   NSUInteger retVal = (NSUInteger)ceil((float)emojiCount / numberOfEmojisOnAPage);
   NSLog(@"%d %d %d :: %d", numberOfRows, numberOfColumns, emojiCount, retVal);
