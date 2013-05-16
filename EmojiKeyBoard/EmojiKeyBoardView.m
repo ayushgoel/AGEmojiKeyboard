@@ -93,7 +93,6 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.delegate = self;
-    [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:1];
 
     [self addSubview:self.scrollView];
   }
@@ -160,10 +159,10 @@
 
 - (void)pageControlTouched:(DDPageControl *)sender {
   NSLog(@"%d", sender.currentPage);
-  [self setPage:self.pageControl.currentPage];
   CGRect bounds = self.scrollView.bounds;
   bounds.origin.x = CGRectGetWidth(bounds) * sender.currentPage;
   bounds.origin.y = 0;
+  // scrollViewDidScroll is called here. Page set at that time.
   [self.scrollView scrollRectToVisible:bounds animated:YES];
 }
 
