@@ -72,6 +72,7 @@
     self.pageControl.offColor = [UIColor lightGrayColor];
     self.pageControl.indicatorDiameter = PAGE_CONTROL_INDICATOR_DIAMETER;
     self.pageControl.hidesForSinglePage = YES;
+    self.pageControl.currentPage = 0;
     CGSize pageControlSize = [self.pageControl sizeForNumberOfPages:3];
     NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category
                                                   inFrameSize:CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - CGRectGetHeight(self.segmentsBar.bounds) - pageControlSize.height)];
@@ -92,20 +93,43 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.delegate = self;
-    [self createPagesWithNumberOfPages:numberOfPages];
+    [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:1];
+
     [self addSubview:self.scrollView];
   }
   return self;
 }
 
-- (void)createPagesWithNumberOfPages:(NSUInteger)numberOfPages {
+- (void)layoutSubviews {
+  CGSize pageControlSize = [self.pageControl sizeForNumberOfPages:3];
+  NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category
+                                                inFrameSize:CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - CGRectGetHeight(self.segmentsBar.bounds) - pageControlSize.height)];
+
+  NSInteger currentPage = (self.pageControl.currentPage > numberOfPages) ? numberOfPages : self.pageControl.currentPage;
+
+  // if (currentPage > numberOfPages) it is set implicitly to max pageNumber available
+  self.pageControl.numberOfPages = numberOfPages;
+  pageControlSize = [self.pageControl sizeForNumberOfPages:numberOfPages];
+  self.pageControl.frame = CGRectIntegral(CGRectMake((CGRectGetWidth(self.bounds) - pageControlSize.width) / 2,
+                                                     CGRectGetHeight(self.bounds) - pageControlSize.height,
+                                                     pageControlSize.width,
+                                                     pageControlSize.height));
+
+  self.scrollView.frame = CGRectMake(0,
+                                     CGRectGetHeight(self.segmentsBar.bounds),
+                                     CGRectGetWidth(self.bounds),
+                                     CGRectGetHeight(self.bounds) - CGRectGetHeight(self.segmentsBar.bounds) - pageControlSize.height);
+  [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.bounds) * currentPage, 0);
+  [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:currentPage];
+}
+
+- (void)createPagesWithNumberOfPages:(NSUInteger)numberOfPages setCurrentPage:(NSInteger)currentPage {
   NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.bounds.size];
   NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.bounds.size];
 
-  self.pageControl.currentPage = 0;
   self.pageViews = nil;
   self.pageViews = [[NSMutableArray alloc] initWithCapacity:PAGE_CACHE_SIZE];
-  self.scrollView.contentOffset = CGPointMake(0, 0);
   self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * numberOfPages, CGRectGetHeight(self.scrollView.bounds));
 
   for (int i=0; i<PAGE_CACHE_SIZE; ++i) {
@@ -116,7 +140,7 @@
     [self.pageViews addObject:pageView];
     [self.scrollView addSubview:pageView];
   }
-  [self setPage:1];
+  [self setPage:currentPage];
 }
 
 #pragma mark event handlers
@@ -127,9 +151,11 @@
   NSArray *categoryList = @[@"People", @"Objects", @"Nature", @"Places", @"Symbols"];
   self.category = categoryList[sender.selectedSegmentIndex - 1];
   NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category inFrameSize:self.scrollView.bounds.size];
+  self.pageControl.currentPage = 0;
   self.pageControl.numberOfPages = numberOfPages;
   [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  [self createPagesWithNumberOfPages:numberOfPages];
+  self.scrollView.contentOffset = CGPointMake(0, 0);
+  [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:1];
 }
 
 - (void)pageControlTouched:(DDPageControl *)sender {
