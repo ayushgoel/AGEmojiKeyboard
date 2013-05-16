@@ -79,11 +79,11 @@
 }
 
 - (CGFloat)XMarginForButtons {
-  return ((self.frame.size.width - (self.columns * self.buttonSize.width)) / 2);
+  return ((CGRectGetWidth(self.bounds) - (self.columns * self.buttonSize.width)) / 2);
 }
 
 - (CGFloat)YMarginForButtons {
-  return ((self.frame.size.height - (self.rows * self.buttonSize.height)) / 2);
+  return ((CGRectGetHeight(self.bounds) - (self.rows * self.buttonSize.height)) / 2);
 }
 
 - (UIButton *)createButtonAtIndex:(NSUInteger)index {
@@ -108,15 +108,6 @@
   }
   return self;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 - (void)emojiButtonPressed:(UIButton *)button {
   NSLog(@"%@", button.titleLabel.text);
