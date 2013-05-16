@@ -77,10 +77,10 @@
                                                   inFrameSize:CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - CGRectGetHeight(self.segmentsBar.bounds) - pageControlSize.height)];
     self.pageControl.numberOfPages = numberOfPages;
     pageControlSize = [self.pageControl sizeForNumberOfPages:numberOfPages];
-    self.pageControl.frame = CGRectMake((CGRectGetWidth(self.bounds) - pageControlSize.width) / 2,
-                                        CGRectGetHeight(self.bounds) - pageControlSize.height,
-                                        pageControlSize.width,
-                                        pageControlSize.height);
+    self.pageControl.frame = CGRectIntegral(CGRectMake((CGRectGetWidth(self.bounds) - pageControlSize.width) / 2,
+                                                       CGRectGetHeight(self.bounds) - pageControlSize.height,
+                                                       pageControlSize.width,
+                                                       pageControlSize.height));
     [self.pageControl addTarget:self action:@selector(pageControlTouched:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:self.pageControl];
 

@@ -10,7 +10,6 @@
 
 @interface EmojiPageView ()
 
-@property (nonatomic, retain) NSMutableArray *buttonTexts;
 @property (nonatomic, assign) CGSize buttonSize;
 @property (nonatomic, retain) NSMutableArray *buttons;
 @property (nonatomic, assign) NSUInteger columns;
@@ -19,15 +18,12 @@
 @end
 
 @implementation EmojiPageView
-@synthesize buttonTexts = buttonTexts_;
 @synthesize buttonSize = buttonSize_;
 @synthesize buttons = buttons_;
 @synthesize columns = columns_;
 @synthesize rows = rows_;
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
-  if (buttonTexts_ != buttonTexts) {
-
 //    for (NSString *t in buttonTexts) {
 //      NSLog(@"BT : %@", t);
 //    }
@@ -37,43 +33,33 @@
 //    for (UIButton *button in self.buttons) {
 //      NSLog(@"button : %@", button.titleLabel.text);
 //    }
-    if (!buttonTexts_) {
-      buttonTexts_ = [[[NSMutableArray alloc] initWithCapacity:self.rows * self.columns] autorelease];
-    }
 
-    if ([buttonTexts_ count] == [buttonTexts count]) {
-      // just reset text on each button
-      for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
-        UIButton *button = [self.buttons objectAtIndex:i];
-        if (!button) {
-          button = [self createButtonAtIndex:i];
-          [self addSubview:button];
-        }
-        [button setTitle:buttonTexts[i] forState:UIControlStateNormal];
-        buttonTexts_[i] = buttonTexts[i];
-      }
-    } else if ([buttonTexts_ count] == 0) {
-      buttonTexts_ = nil;
-      buttonTexts_ = [buttonTexts retain];
-      for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
-        UIButton *button = [self createButtonAtIndex:i];
-        [button setTitle:[buttonTexts objectAtIndex:i] forState:UIControlStateNormal];
-        [self.buttons addObject:button];
+  if ([self.buttons count] == [buttonTexts count]) {
+    // just reset text on each button
+    for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
+      UIButton *button = [self.buttons objectAtIndex:i];
+      if (!button) {
+        button = [self createButtonAtIndex:i];
         [self addSubview:button];
       }
-    } else {
-      //fixme: reset the array and recreate it
-      [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-      self.buttons = nil;
-      self.buttons = [[[NSMutableArray alloc] initWithCapacity:self.rows * self.columns] autorelease];
-      buttonTexts_ = nil;
-      buttonTexts_ = [buttonTexts retain];
-      for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
-        UIButton *button = [self createButtonAtIndex:i];
-        [button setTitle:[buttonTexts objectAtIndex:i] forState:UIControlStateNormal];
-        [self.buttons addObject:button];
-        [self addSubview:button];
-      }
+      [button setTitle:buttonTexts[i] forState:UIControlStateNormal];
+    }
+  } else if ([self.buttons count] == 0) {
+    for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
+      UIButton *button = [self createButtonAtIndex:i];
+      [button setTitle:[buttonTexts objectAtIndex:i] forState:UIControlStateNormal];
+      [self.buttons addObject:button];
+      [self addSubview:button];
+    }
+  } else {
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.buttons = nil;
+    self.buttons = [[[NSMutableArray alloc] initWithCapacity:self.rows * self.columns] autorelease];
+    for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
+      UIButton *button = [self createButtonAtIndex:i];
+      [button setTitle:[buttonTexts objectAtIndex:i] forState:UIControlStateNormal];
+      [self.buttons addObject:button];
+      [self addSubview:button];
     }
   }
 }
@@ -104,7 +90,6 @@
     self.columns = columns;
     self.rows = rows;
     self.buttons = [[[NSMutableArray alloc] initWithCapacity:rows * columns] autorelease];
-    // Initialization code
   }
   return self;
 }
