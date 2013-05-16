@@ -132,10 +132,11 @@
   self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * numberOfPages, CGRectGetHeight(self.scrollView.bounds));
 
   for (int i=0; i<PAGE_CACHE_SIZE; ++i) {
-    EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(-1, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
+    EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
                                                          buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
                                                             columns:columns
                                                                rows:rows] autorelease];
+    pageView.isBeingUsed = NO;
     [self.pageViews addObject:pageView];
     [self.scrollView addSubview:pageView];
   }
@@ -185,7 +186,8 @@
     return NO;
   }
   for (EmojiPageView *page in self.pageViews) {
-    if ((page.frame.origin.x / CGRectGetWidth(self.scrollView.bounds)) == index) {
+    if ((page.isBeingUsed == YES) &&
+        (page.frame.origin.x / CGRectGetWidth(self.scrollView.bounds)) == index) {
       return NO;
     }
   }
@@ -197,7 +199,7 @@
   for (EmojiPageView *page in self.pageViews) {
     NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(scrollView.bounds);
     if ((abs(pageNumber - self.pageControl.currentPage) > 1) ||
-        (page.frame.origin.x == -1)){
+        (page.isBeingUsed == NO)) {
       pageView = page;
       break;
     }
@@ -224,6 +226,7 @@
                                                     toIndex:(startingIndex + rows * columns)];
   NSLog(@"Setting page at index %d", index);
   [pageView setButtonTexts:buttonTexts];
+  pageView.isBeingUsed = YES;
   pageView.frame = CGRectMake(index * CGRectGetWidth(scrollView.bounds), 0, CGRectGetWidth(scrollView.bounds), CGRectGetHeight(scrollView.bounds));
 }
 

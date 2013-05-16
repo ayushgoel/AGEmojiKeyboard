@@ -10,6 +10,8 @@
 
 @interface EmojiPageView : UIView
 
+@property (nonatomic, assign) BOOL isBeingUsed;
+
 - (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize columns:(NSUInteger)columns rows:(NSUInteger)rows;
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts;
 
