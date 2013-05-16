@@ -34,22 +34,16 @@
 //      NSLog(@"button : %@", button.titleLabel.text);
 //    }
 
+  NSLog(@"Count : %d", [self.buttons count]);
   if ([self.buttons count] == [buttonTexts count]) {
     // just reset text on each button
     for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
       UIButton *button = [self.buttons objectAtIndex:i];
       if (!button) {
         button = [self createButtonAtIndex:i];
-        [self addSubview:button];
+        [self addToViewButton:button];
       }
       [button setTitle:buttonTexts[i] forState:UIControlStateNormal];
-    }
-  } else if ([self.buttons count] == 0) {
-    for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
-      UIButton *button = [self createButtonAtIndex:i];
-      [button setTitle:[buttonTexts objectAtIndex:i] forState:UIControlStateNormal];
-      [self.buttons addObject:button];
-      [self addSubview:button];
     }
   } else {
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -57,11 +51,15 @@
     self.buttons = [[[NSMutableArray alloc] initWithCapacity:self.rows * self.columns] autorelease];
     for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
       UIButton *button = [self createButtonAtIndex:i];
-      [button setTitle:[buttonTexts objectAtIndex:i] forState:UIControlStateNormal];
-      [self.buttons addObject:button];
-      [self addSubview:button];
+      [button setTitle:buttonTexts[i] forState:UIControlStateNormal];
+      [self addToViewButton:button];
     }
   }
+}
+
+- (void)addToViewButton:(UIButton *)button {
+  [self.buttons addObject:button];
+  [self addSubview:button];
 }
 
 - (CGFloat)XMarginForButtons {
