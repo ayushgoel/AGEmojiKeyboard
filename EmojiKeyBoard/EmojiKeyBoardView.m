@@ -194,7 +194,7 @@
   return YES;
 }
 
-- (EmojiPageView *)availablePageViewInScrollView:(UIScrollView *)scrollView atIndex:(NSUInteger)index {
+- (EmojiPageView *)availablePageViewInScrollView:(UIScrollView *)scrollView {
   EmojiPageView *pageView = nil;
   for (EmojiPageView *page in self.pageViews) {
     NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(scrollView.bounds);
@@ -203,9 +203,6 @@
       pageView = page;
       break;
     }
-  }
-  if (!pageView) {
-    pageView = [self.pageViews objectAtIndex:index % PAGE_CACHE_SIZE];
   }
   return pageView;
 }
@@ -216,7 +213,7 @@
     return;
   }
 
-  EmojiPageView *pageView = [self availablePageViewInScrollView:scrollView atIndex:index];
+  EmojiPageView *pageView = [self availablePageViewInScrollView:scrollView];
 
   NSUInteger rows = [self numberOfRowsForFrameSize:scrollView.bounds.size];
   NSUInteger columns = [self numberOfColumnsForFrameSize:scrollView.bounds.size];
