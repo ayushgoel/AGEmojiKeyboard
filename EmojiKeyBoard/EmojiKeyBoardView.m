@@ -51,18 +51,16 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 - (NSMutableArray *)recentEmojis {
   NSArray *emojis = [[NSUserDefaults standardUserDefaults] arrayForKey:RecentUsedEmojiCharactersKey];
-  NSMutableArray *recentEmojis_ = [emojis mutableCopy];
-  if (recentEmojis_ == nil) {
-    recentEmojis_ = [NSMutableArray array];
+  NSMutableArray *recentEmojis = [emojis mutableCopy];
+  if (recentEmojis == nil) {
+    recentEmojis = [NSMutableArray array];
   }
-  return recentEmojis_;
+  return recentEmojis;
 }
 
 - (void)setRecentEmojis:(NSMutableArray *)recentEmojis {
   [[NSUserDefaults standardUserDefaults] setObject:recentEmojis forKey:RecentUsedEmojiCharactersKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
-  NSArray *emojis = [[NSUserDefaults standardUserDefaults] arrayForKey:RecentUsedEmojiCharactersKey];
-  NSLog(@"%@", emojis);
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -71,7 +69,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   if (self) {
     // initialize category
     self.category = @"People";
-    self.recentEmojis = [NSMutableArray arrayWithCapacity:RECENT_EMOJIS_MAINTAINED_COUNT];
 
     self.segmentsBar = [[[UISegmentedControl alloc] initWithItems:@[
                          [UIImage imageNamed:@"recent_n.png"],
@@ -271,7 +268,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 - (NSArray *)emojisForCategory:(NSString *)category {
   if ([category isEqualToString:segmentRecentName]) {
-    return self.recentEmojis;
+    return [self recentEmojis];
   }
   return [self.emojis objectForKey:category];
 }
@@ -289,7 +286,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 - (NSMutableArray *)emojiTextsForCategory:(NSString *)category fromIndex:(NSUInteger)start toIndex:(NSUInteger)end {
   NSArray *emojis = [self emojisForCategory:category];
-  end = ([emojis count] - 1 > end)? end : [emojis count];
+  end = ([emojis count] > end)? end : [emojis count];
   NSIndexSet *index = [[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(start, end-start)] autorelease];
   return [[emojis objectsAtIndexes:index] mutableCopy];
 }
