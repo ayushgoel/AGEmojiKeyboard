@@ -15,8 +15,13 @@
 #define PAGE_CACHE_SIZE 3
 #define DEFAULT_SELECTED_SEGMENT 1
 #define PAGE_CONTROL_INDICATOR_DIAMETER 6.0
+#define RECENT_EMOJIS_MAINTAINED_COUNT 50
 
-@interface EmojiKeyBoardView () <UIScrollViewDelegate>
+static NSString *const segmentRecentName = @"Recent";
+NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
+
+
+@interface EmojiKeyBoardView () <UIScrollViewDelegate, EmojiPageViewDelegate>
 
 @property (nonatomic, retain) UISegmentedControl *segmentsBar;
 @property (nonatomic, retain) DDPageControl *pageControl;
@@ -44,12 +49,29 @@
   return emojis_;
 }
 
+- (NSMutableArray *)recentEmojis {
+  NSArray *emojis = [[NSUserDefaults standardUserDefaults] arrayForKey:RecentUsedEmojiCharactersKey];
+  NSMutableArray *recentEmojis_ = [emojis mutableCopy];
+  if (recentEmojis_ == nil) {
+    recentEmojis_ = [NSMutableArray array];
+  }
+  return recentEmojis_;
+}
+
+- (void)setRecentEmojis:(NSMutableArray *)recentEmojis {
+  [[NSUserDefaults standardUserDefaults] setObject:recentEmojis forKey:RecentUsedEmojiCharactersKey];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+  NSArray *emojis = [[NSUserDefaults standardUserDefaults] arrayForKey:RecentUsedEmojiCharactersKey];
+  NSLog(@"%@", emojis);
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
   if (self) {
     // initialize category
     self.category = @"People";
+    self.recentEmojis = [NSMutableArray arrayWithCapacity:RECENT_EMOJIS_MAINTAINED_COUNT];
 
     self.segmentsBar = [[[UISegmentedControl alloc] initWithItems:@[
                          [UIImage imageNamed:@"recent_n.png"],
@@ -138,6 +160,7 @@
                                                           columns:columns
                                                              rows:rows] autorelease];
   pageView.isBeingUsed = NO;
+  pageView.delegate = self;
   [self.pageViews addObject:pageView];
   [self.scrollView addSubview:pageView];
   return pageView;
@@ -148,8 +171,8 @@
 - (void)categoryChangedViaSegmentsBar:(UISegmentedControl *)sender {
   // recalculate number of pages for new category and recreate emoji pages
   NSLog(@"%d", sender.selectedSegmentIndex);
-  NSArray *categoryList = @[@"People", @"Objects", @"Nature", @"Places", @"Symbols"];
-  self.category = categoryList[sender.selectedSegmentIndex - 1];
+  NSArray *categoryList = @[segmentRecentName, @"People", @"Objects", @"Nature", @"Places", @"Symbols"];
+  self.category = categoryList[sender.selectedSegmentIndex];
   NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category inFrameSize:self.scrollView.bounds.size];
   self.pageControl.currentPage = 0;
   self.pageControl.numberOfPages = numberOfPages;
@@ -246,31 +269,46 @@
   return (NSUInteger)floor(frameSize.height / BUTTON_HEIGHT);
 }
 
+- (NSArray *)emojisForCategory:(NSString *)category {
+  if ([category isEqualToString:segmentRecentName]) {
+    return self.recentEmojis;
+  }
+  return [self.emojis objectForKey:category];
+}
+
 - (NSUInteger)numberOfPagesForCategory:(NSString *)category inFrameSize:(CGSize)frameSize {
-  NSUInteger emojiCount = [[self.emojis objectForKey:category] count];
+  NSUInteger emojiCount = [[self emojisForCategory:category] count];
   NSUInteger numberOfRows = [self numberOfRowsForFrameSize:frameSize];
   NSUInteger numberOfColumns = [self numberOfColumnsForFrameSize:frameSize];
   NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns);
 
-  NSUInteger retVal = (NSUInteger)ceil((float)emojiCount / numberOfEmojisOnAPage);
-  NSLog(@"%d %d %d :: %d", numberOfRows, numberOfColumns, emojiCount, retVal);
-  return retVal;
+  NSUInteger numberOfPages = (NSUInteger)ceil((float)emojiCount / numberOfEmojisOnAPage);
+  NSLog(@"%d %d %d :: %d", numberOfRows, numberOfColumns, emojiCount, numberOfPages);
+  return numberOfPages;
 }
 
 - (NSMutableArray *)emojiTextsForCategory:(NSString *)category fromIndex:(NSUInteger)start toIndex:(NSUInteger)end {
-  NSArray *emojis = [self.emojis objectForKey:category];
+  NSArray *emojis = [self emojisForCategory:category];
   end = ([emojis count] - 1 > end)? end : [emojis count];
   NSIndexSet *index = [[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(start, end-start)] autorelease];
   return [[emojis objectsAtIndexes:index] mutableCopy];
 }
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
+#pragma mark EmojiPageViewDelegate
+
+- (void)emojiPageView:(EmojiPageView *)emojiPageView emojiUsed:(NSString *)emoji {
+  NSLog(@"%@ .... ", emoji);
+  NSMutableArray *recentEmojis = [self recentEmojis];
+  for (int i = 0; i < [recentEmojis count]; ++i) {
+    if ([recentEmojis[i] isEqualToString:emoji]) {
+      [recentEmojis removeObjectAtIndex:i];
+      [recentEmojis insertObject:emoji atIndex:0];
+      [self setRecentEmojis:recentEmojis];
+      return;
+    }
+  }
+  [recentEmojis insertObject:emoji atIndex:0];
+  [self setRecentEmojis:recentEmojis];
+}
 
 @end

@@ -23,6 +23,7 @@
 @synthesize columns = columns_;
 @synthesize rows = rows_;
 @synthesize isBeingUsed = isBeingUsed_;
+@synthesize delegate = delegate_;
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
 //    for (NSString *t in buttonTexts) {
@@ -95,6 +96,7 @@
 
 - (void)emojiButtonPressed:(UIButton *)button {
   NSLog(@"%@", button.titleLabel.text);
+  [self.delegate emojiPageView:self emojiUsed:button.titleLabel.text];
 }
 
 
