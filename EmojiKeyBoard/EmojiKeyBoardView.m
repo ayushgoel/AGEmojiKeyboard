@@ -124,23 +124,23 @@
 }
 
 - (void)createPagesWithNumberOfPages:(NSUInteger)numberOfPages setCurrentPage:(NSInteger)currentPage {
+  self.pageViews = nil;
+  self.pageViews = [[[NSMutableArray alloc] initWithCapacity:PAGE_CACHE_SIZE] autorelease];
+  self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * numberOfPages, CGRectGetHeight(self.scrollView.bounds));
+  [self setPage:currentPage];
+}
+
+- (EmojiPageView *)createPage {
   NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.bounds.size];
   NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.bounds.size];
-
-  self.pageViews = nil;
-  self.pageViews = [[NSMutableArray alloc] initWithCapacity:PAGE_CACHE_SIZE];
-  self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * numberOfPages, CGRectGetHeight(self.scrollView.bounds));
-
-  for (int i=0; i<PAGE_CACHE_SIZE; ++i) {
-    EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
-                                                         buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
-                                                            columns:columns
-                                                               rows:rows] autorelease];
-    pageView.isBeingUsed = NO;
-    [self.pageViews addObject:pageView];
-    [self.scrollView addSubview:pageView];
-  }
-  [self setPage:currentPage];
+  EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
+                                                       buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
+                                                          columns:columns
+                                                             rows:rows] autorelease];
+  pageView.isBeingUsed = NO;
+  [self.pageViews addObject:pageView];
+  [self.scrollView addSubview:pageView];
+  return pageView;
 }
 
 #pragma mark event handlers
@@ -203,6 +203,9 @@
       pageView = page;
       break;
     }
+  }
+  if (!pageView) {
+    pageView = [self createPage];
   }
   return pageView;
 }
