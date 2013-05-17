@@ -259,7 +259,7 @@
 
 - (NSMutableArray *)emojiTextsForCategory:(NSString *)category fromIndex:(NSUInteger)start toIndex:(NSUInteger)end {
   NSArray *emojis = [self.emojis objectForKey:category];
-  end = ([emojis count] - 1 > end)? end : [emojis count] - 1;
+  end = ([emojis count] - 1 > end)? end : [emojis count];
   NSIndexSet *index = [[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(start, end-start)] autorelease];
   return [[emojis objectsAtIndexes:index] mutableCopy];
 }
