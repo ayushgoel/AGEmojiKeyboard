@@ -59,6 +59,10 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 }
 
 - (void)setRecentEmojis:(NSMutableArray *)recentEmojis {
+  if ([recentEmojis count] > RECENT_EMOJIS_MAINTAINED_COUNT) {
+    NSIndexSet *indexesToBeRemoved = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(RECENT_EMOJIS_MAINTAINED_COUNT, [recentEmojis count] - RECENT_EMOJIS_MAINTAINED_COUNT)];
+    [recentEmojis removeObjectsAtIndexes:indexesToBeRemoved];
+  }
   [[NSUserDefaults standardUserDefaults] setObject:recentEmojis forKey:RecentUsedEmojiCharactersKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
