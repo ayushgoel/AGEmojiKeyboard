@@ -197,14 +197,20 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   bounds.origin.x = CGRectGetWidth(bounds) * sender.currentPage;
   bounds.origin.y = 0;
   // scrollViewDidScroll is called here. Page set at that time.
+  // fixme: the currentpage is determined by the page control. When page is changed
+  // via pagecontrol, the current page changes first, and thus scroll view sets and resets pages twice.
+  // * pagecontrol page changed to p+1
+  // * scrollViewDidScroll checks that page hasn't scrolled and is at p
+  // * it sets pagecontrol back to p, tries to set pages for p which are already there.
+  // * scroll view is still scrolling, and once it's contentOffset crosses half of pageWidth, new page number is set and pages set.
   [self.scrollView scrollRectToVisible:bounds animated:YES];
 }
 
 // Track the contentOffset of the scroll view, and when it passes the mid
 // point of the current view’s width, the views are reconfigured.
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-  CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
-  NSInteger newPageNumber = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+  CGFloat pageWidth = CGRectGetWidth(scrollView.frame);
+  NSInteger newPageNumber = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
   if (self.pageControl.currentPage == newPageNumber) {
     return;
   }
