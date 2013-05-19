@@ -188,7 +188,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   self.pageControl.numberOfPages = numberOfPages;
   [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
   self.scrollView.contentOffset = CGPointMake(0, 0);
-  [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:1];
+  [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:0];
 }
 
 - (void)pageControlTouched:(DDPageControl *)sender {
