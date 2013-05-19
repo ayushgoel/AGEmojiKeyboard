@@ -26,17 +26,7 @@
 @synthesize delegate = delegate_;
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
-//    for (NSString *t in buttonTexts) {
-//      NSLog(@"BT : %@", t);
-//    }
-//    for (NSString *t in buttonTexts_) {
-//      NSLog(@"BTSS : %@", t);
-//    }
-//    for (UIButton *button in self.buttons) {
-//      NSLog(@"button : %@", button.titleLabel.text);
-//    }
-
-  NSLog(@"Count : %d", [self.buttons count]);
+  NSLog(@"setting button texts. Previous number of buttons count : %d", [self.buttons count]);
   if ([self.buttons count] == [buttonTexts count]) {
     // just reset text on each button
     for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
@@ -86,6 +76,8 @@
 - (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize columns:(NSUInteger)columns rows:(NSUInteger)rows{
   self = [super initWithFrame:frame];
   if (self) {
+    NSLog(@"Initializing page view");
+
     self.buttonSize = buttonSize;
     self.columns = columns;
     self.rows = rows;
@@ -95,7 +87,7 @@
 }
 
 - (void)emojiButtonPressed:(UIButton *)button {
-  NSLog(@"%@", button.titleLabel.text);
+  NSLog(@"Emoji pressed %@", button.titleLabel.text);
   [self.delegate emojiPageView:self emojiUsed:button.titleLabel.text];
 }
 
