@@ -20,7 +20,6 @@
 static NSString *const segmentRecentName = @"Recent";
 NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
-// fixme: setting numberOfPages on pagecontrol calls setNeedsDisplay and thus calls layoutSubviews
 
 @interface EmojiKeyBoardView () <UIScrollViewDelegate, EmojiPageViewDelegate>
 
@@ -184,11 +183,12 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   NSLog(@"Category changed %d", sender.selectedSegmentIndex);
   NSArray *categoryList = @[segmentRecentName, @"People", @"Objects", @"Nature", @"Places", @"Symbols"];
   self.category = categoryList[sender.selectedSegmentIndex];
-  [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
   NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category inFrameSize:self.scrollView.bounds.size];
   self.pageControl.currentPage = 0;
   self.pageControl.numberOfPages = numberOfPages;
-  // layout subviews called here as pagecontrol number of pages changes
+  [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  self.scrollView.contentOffset = CGPointMake(0, 0);
+  [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:0];
 }
 
 - (void)pageControlTouched:(DDPageControl *)sender {
