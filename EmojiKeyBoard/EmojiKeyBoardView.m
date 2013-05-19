@@ -194,8 +194,8 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 // Track the contentOffset of the scroll view, and when it passes the mid
 // point of the current view’s width, the views are reconfigured.
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-  CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
-  NSInteger newPageNumber = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+  CGFloat pageWidth = CGRectGetWidth(scrollView.frame);
+  NSInteger newPageNumber = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
   if (self.pageControl.currentPage == newPageNumber) {
     return;
   }
