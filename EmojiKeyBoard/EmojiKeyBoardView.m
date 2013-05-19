@@ -12,7 +12,6 @@
 #define BUTTON_WIDTH 35
 #define BUTTON_HEIGHT 35
 
-#define PAGE_CACHE_SIZE 3
 #define DEFAULT_SELECTED_SEGMENT 1
 #define PAGE_CONTROL_INDICATOR_DIAMETER 6.0
 #define RECENT_EMOJIS_MAINTAINED_COUNT 50
@@ -148,7 +147,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 - (void)createPagesWithNumberOfPages:(NSUInteger)numberOfPages setCurrentPage:(NSInteger)currentPage {
   self.pageViews = nil;
-  self.pageViews = [[[NSMutableArray alloc] initWithCapacity:PAGE_CACHE_SIZE] autorelease];
+  self.pageViews = [NSMutableArray array];
   self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * numberOfPages, CGRectGetHeight(self.scrollView.bounds));
   [self setPage:currentPage];
 }
