@@ -25,15 +25,6 @@
 @synthesize delegate = delegate_;
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
-//    for (NSString *t in buttonTexts) {
-//      NSLog(@"BT : %@", t);
-//    }
-//    for (NSString *t in buttonTexts_) {
-//      NSLog(@"BTSS : %@", t);
-//    }
-//    for (UIButton *button in self.buttons) {
-//      NSLog(@"button : %@", button.titleLabel.text);
-//    }
 
   NSLog(@"Count : %d", [self.buttons count]);
   if ([self.buttons count] == [buttonTexts count]) {
@@ -82,7 +73,7 @@
   return button;
 }
 
-- (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize columns:(NSUInteger)columns rows:(NSUInteger)rows{
+- (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize rows:(NSUInteger)rows columns:(NSUInteger)columns {
   self = [super initWithFrame:frame];
   if (self) {
     self.buttonSize = buttonSize;

@@ -14,7 +14,7 @@
 
 @property (nonatomic, assign) id<EmojiPageViewDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize columns:(NSUInteger)columns rows:(NSUInteger)rows;
+- (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize rows:(NSUInteger)rows columns:(NSUInteger)columns;
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts;
 
 @end

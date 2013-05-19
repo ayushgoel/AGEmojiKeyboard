@@ -158,8 +158,8 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.bounds.size];
   EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
                                                        buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
-                                                          columns:columns
-                                                             rows:rows] autorelease];
+                                                             rows:rows
+                                                          columns:columns] autorelease];
   pageView.delegate = self;
   [self.pageViews addObject:pageView];
   [self.scrollView addSubview:pageView];
