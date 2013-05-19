@@ -21,6 +21,6 @@
 
 @protocol EmojiPageViewDelegate <NSObject>
 
-- (void)emojiPageView:(EmojiPageView *)emojiPageView emojiUsed:(NSString *)emoji;
+- (void)emojiPageView:(EmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji;
 
 @end

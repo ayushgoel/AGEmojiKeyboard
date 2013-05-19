@@ -8,6 +8,7 @@
 
 #import "EmojiKeyBoardView.h"
 #import "EmojiPageView.h"
+#import "DDPageControl.h"
 
 #define BUTTON_WIDTH 35
 #define BUTTON_HEIGHT 35
@@ -48,6 +49,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   return emojis_;
 }
 
+// recent emojis are backed in NSUserDefaults to save them across app restarts.
 - (NSMutableArray *)recentEmojis {
   NSArray *emojis = [[NSUserDefaults standardUserDefaults] arrayForKey:RecentUsedEmojiCharactersKey];
   NSMutableArray *recentEmojis = [emojis mutableCopy];
@@ -58,6 +60,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 }
 
 - (void)setRecentEmojis:(NSMutableArray *)recentEmojis {
+  // remove emojis if they cross the cache maintained limit
   if ([recentEmojis count] > RECENT_EMOJIS_MAINTAINED_COUNT) {
     NSIndexSet *indexesToBeRemoved = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(RECENT_EMOJIS_MAINTAINED_COUNT, [recentEmojis count] - RECENT_EMOJIS_MAINTAINED_COUNT)];
     [recentEmojis removeObjectsAtIndexes:indexesToBeRemoved];
@@ -152,7 +155,8 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   [self setPage:currentPage];
 }
 
-- (EmojiPageView *)createPage {
+// Create a pageView and add it to the scroll view.
+- (EmojiPageView *)synthesizeEmojiPageView {
   NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.bounds.size];
   NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.bounds.size];
   EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
@@ -203,6 +207,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 #pragma mark change a page on scrollView
 
+// Check if setting pageView for an index is required
 - (BOOL)requireToSetPageViewForIndex:(NSUInteger)index {
   if (index >= self.pageControl.numberOfPages) {
     return NO;
@@ -215,28 +220,34 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   return YES;
 }
 
-- (EmojiPageView *)availablePageViewInScrollView:(UIScrollView *)scrollView {
+// return a pageView that can be used in the current scrollView.
+// look for an available pageView in current pageView-s on scrollView.
+// If all are in use i.e. are of current page or neighbours
+// of current page, we create a new one
+
+- (EmojiPageView *)usableEmojiPageView {
   EmojiPageView *pageView = nil;
   for (EmojiPageView *page in self.pageViews) {
-    NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(scrollView.bounds);
+    NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(self.scrollView.bounds);
     if (abs(pageNumber - self.pageControl.currentPage) > 1) {
       pageView = page;
       break;
     }
   }
   if (!pageView) {
-    pageView = [self createPage];
+    pageView = [self synthesizeEmojiPageView];
   }
   return pageView;
 }
 
-- (void)setPageViewForScrollView:(UIScrollView *)scrollView atIndex:(NSUInteger)index {
+// Set emoji page view for given index.
+- (void)setEmojiPageViewInScrollView:(UIScrollView *)scrollView atIndex:(NSUInteger)index {
 
   if (![self requireToSetPageViewForIndex:index]) {
     return;
   }
 
-  EmojiPageView *pageView = [self availablePageViewInScrollView:scrollView];
+  EmojiPageView *pageView = [self usableEmojiPageView];
 
   NSUInteger rows = [self numberOfRowsForFrameSize:scrollView.bounds.size];
   NSUInteger columns = [self numberOfColumnsForFrameSize:scrollView.bounds.size];
@@ -249,10 +260,12 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   pageView.frame = CGRectMake(index * CGRectGetWidth(scrollView.bounds), 0, CGRectGetWidth(scrollView.bounds), CGRectGetHeight(scrollView.bounds));
 }
 
+// Set the current page.
+// sets neightbouring pages too, as they are viewable by part scrolling.
 - (void)setPage:(NSInteger)page {
-  [self setPageViewForScrollView:self.scrollView atIndex:page - 1];
-  [self setPageViewForScrollView:self.scrollView atIndex:page];
-  [self setPageViewForScrollView:self.scrollView atIndex:page + 1];
+  [self setEmojiPageViewInScrollView:self.scrollView atIndex:page - 1];
+  [self setEmojiPageViewInScrollView:self.scrollView atIndex:page];
+  [self setEmojiPageViewInScrollView:self.scrollView atIndex:page + 1];
 }
 
 #pragma mark data methods
@@ -265,20 +278,22 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   return (NSUInteger)floor(frameSize.height / BUTTON_HEIGHT);
 }
 
-- (NSArray *)emojisForCategory:(NSString *)category {
+- (NSArray *)emojiListForCategory:(NSString *)category {
   if ([category isEqualToString:segmentRecentName]) {
     return [self recentEmojis];
   }
   return [self.emojis objectForKey:category];
 }
 
+// for a given frame size of scroll view, return the number of pages
+// required to show all the emojis for a category
 - (NSUInteger)numberOfPagesForCategory:(NSString *)category inFrameSize:(CGSize)frameSize {
 
   if ([category isEqualToString:segmentRecentName]) {
     return 1;
   }
 
-  NSUInteger emojiCount = [[self emojisForCategory:category] count];
+  NSUInteger emojiCount = [[self emojiListForCategory:category] count];
   NSUInteger numberOfRows = [self numberOfRowsForFrameSize:frameSize];
   NSUInteger numberOfColumns = [self numberOfColumnsForFrameSize:frameSize];
   NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns);
@@ -288,8 +303,9 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   return numberOfPages;
 }
 
+// return the emojis for a category, given a staring and an endix index
 - (NSMutableArray *)emojiTextsForCategory:(NSString *)category fromIndex:(NSUInteger)start toIndex:(NSUInteger)end {
-  NSArray *emojis = [self emojisForCategory:category];
+  NSArray *emojis = [self emojiListForCategory:category];
   end = ([emojis count] > end)? end : [emojis count];
   NSIndexSet *index = [[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(start, end-start)] autorelease];
   return [[emojis objectsAtIndexes:index] mutableCopy];
@@ -297,7 +313,8 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 #pragma mark EmojiPageViewDelegate
 
-- (void)emojiPageView:(EmojiPageView *)emojiPageView emojiUsed:(NSString *)emoji {
+// add the emoji to recents
+- (void)emojiPageView:(EmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji {
   NSLog(@"%@ .... ", emoji);
   NSMutableArray *recentEmojis = [self recentEmojis];
   for (int i = 0; i < [recentEmojis count]; ++i) {

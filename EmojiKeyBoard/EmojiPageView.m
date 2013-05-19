@@ -86,7 +86,7 @@
 
 - (void)emojiButtonPressed:(UIButton *)button {
   NSLog(@"%@", button.titleLabel.text);
-  [self.delegate emojiPageView:self emojiUsed:button.titleLabel.text];
+  [self.delegate emojiPageView:self didUseEmoji:button.titleLabel.text];
 }
 
 

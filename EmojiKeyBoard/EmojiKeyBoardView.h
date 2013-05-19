@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DDPageControl.h"
 
 @interface EmojiKeyBoardView : UIView
 
