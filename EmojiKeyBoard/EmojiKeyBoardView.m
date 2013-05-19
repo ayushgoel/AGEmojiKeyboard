@@ -303,9 +303,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   for (int i = 0; i < [recentEmojis count]; ++i) {
     if ([recentEmojis[i] isEqualToString:emoji]) {
       [recentEmojis removeObjectAtIndex:i];
-      [recentEmojis insertObject:emoji atIndex:0];
-      [self setRecentEmojis:recentEmojis];
-      return;
     }
   }
   [recentEmojis insertObject:emoji atIndex:0];
