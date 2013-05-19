@@ -12,7 +12,6 @@
 
 @interface EmojiPageView : UIView
 
-@property (nonatomic, assign) BOOL isBeingUsed;
 @property (nonatomic, assign) id<EmojiPageViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize columns:(NSUInteger)columns rows:(NSUInteger)rows;

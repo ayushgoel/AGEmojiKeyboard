@@ -160,7 +160,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
                                                        buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
                                                           columns:columns
                                                              rows:rows] autorelease];
-  pageView.isBeingUsed = NO;
   pageView.delegate = self;
   [self.pageViews addObject:pageView];
   [self.scrollView addSubview:pageView];
@@ -210,8 +209,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     return NO;
   }
   for (EmojiPageView *page in self.pageViews) {
-    if ((page.isBeingUsed == YES) &&
-        (page.frame.origin.x / CGRectGetWidth(self.scrollView.bounds)) == index) {
+    if ((page.frame.origin.x / CGRectGetWidth(self.scrollView.bounds)) == index) {
       return NO;
     }
   }
@@ -222,8 +220,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   EmojiPageView *pageView = nil;
   for (EmojiPageView *page in self.pageViews) {
     NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(scrollView.bounds);
-    if ((abs(pageNumber - self.pageControl.currentPage) > 1) ||
-        (page.isBeingUsed == NO)) {
+    if (abs(pageNumber - self.pageControl.currentPage) > 1) {
       pageView = page;
       break;
     }
@@ -250,7 +247,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
                                                     toIndex:(startingIndex + rows * columns)];
   NSLog(@"Setting page at index %d", index);
   [pageView setButtonTexts:buttonTexts];
-  pageView.isBeingUsed = YES;
   pageView.frame = CGRectMake(index * CGRectGetWidth(scrollView.bounds), 0, CGRectGetWidth(scrollView.bounds), CGRectGetHeight(scrollView.bounds));
 }
 

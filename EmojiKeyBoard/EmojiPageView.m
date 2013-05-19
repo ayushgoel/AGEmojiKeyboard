@@ -22,7 +22,6 @@
 @synthesize buttons = buttons_;
 @synthesize columns = columns_;
 @synthesize rows = rows_;
-@synthesize isBeingUsed = isBeingUsed_;
 @synthesize delegate = delegate_;
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
