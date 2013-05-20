@@ -10,7 +10,7 @@
 #import "EmojiPageView.h"
 #import "DDPageControl.h"
 
-#define BUTTON_WIDTH 35
+#define BUTTON_WIDTH 42
 #define BUTTON_HEIGHT 35
 
 #define DEFAULT_SELECTED_SEGMENT 1
