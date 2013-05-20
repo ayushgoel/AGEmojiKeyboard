@@ -26,7 +26,8 @@
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
 
-  NSLog(@"Count : %d", [self.buttons count]);
+  NSAssert(buttonTexts != nil, @"Array containing texts to be set on buttons is nil");
+
   if ([self.buttons count] == [buttonTexts count]) {
     // just reset text on each button
     for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
@@ -50,6 +51,9 @@
 }
 
 - (void)addToViewButton:(UIButton *)button {
+
+  NSAssert(button != nil, @"Button to be added is nil");
+
   [self.buttons addObject:button];
   [self addSubview:button];
 }
@@ -88,6 +92,5 @@
   NSLog(@"%@", button.titleLabel.text);
   [self.delegate emojiPageView:self didUseEmoji:button.titleLabel.text];
 }
-
 
 @end

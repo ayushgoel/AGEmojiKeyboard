@@ -29,6 +29,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 @property (nonatomic, retain) NSDictionary *emojis;
 @property (nonatomic, retain) NSMutableArray *pageViews;
 @property (nonatomic, retain) NSString *category;
+
 @end
 
 @implementation EmojiKeyBoardView
@@ -315,6 +316,9 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 // add the emoji to recents
 - (void)emojiPageView:(EmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji {
+
+  NSAssert(emoji != nil, @"Emoji can't be nil");
+
   NSLog(@"%@ .... ", emoji);
   NSMutableArray *recentEmojis = [self recentEmojis];
   for (int i = 0; i < [recentEmojis count]; ++i) {
