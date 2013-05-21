@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		2A253243173BB93C009379D6 /* EmojiPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A253242173BB93C009379D6 /* EmojiPageView.m */; };
 		2A253246173BB96A009379D6 /* EmojiKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A253245173BB96A009379D6 /* EmojiKeyBoardView.m */; };
+		2A3BC9A3174B5A20001A29AC /* bell_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3BC99D174B5A20001A29AC /* bell_s.png */; };
+		2A3BC9A4174B5A20001A29AC /* car_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3BC99E174B5A20001A29AC /* car_s.png */; };
+		2A3BC9A5174B5A20001A29AC /* characters_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3BC99F174B5A20001A29AC /* characters_s.png */; };
+		2A3BC9A6174B5A20001A29AC /* face_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3BC9A0174B5A20001A29AC /* face_s.png */; };
+		2A3BC9A7174B5A20001A29AC /* flower_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3BC9A1174B5A20001A29AC /* flower_s.png */; };
+		2A3BC9A8174B5A20001A29AC /* recent_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3BC9A2174B5A20001A29AC /* recent_s.png */; };
+		2A3BC9AA174B79E0001A29AC /* icons_bg_separator.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3BC9A9174B79DF001A29AC /* icons_bg_separator.png */; };
 		2A3D5E94171EBE42005DC720 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3D5E93171EBE42005DC720 /* UIKit.framework */; };
 		2A3D5E96171EBE42005DC720 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3D5E95171EBE42005DC720 /* Foundation.framework */; };
 		2A3D5E98171EBE42005DC720 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3D5E97171EBE42005DC720 /* CoreGraphics.framework */; };
@@ -40,6 +47,13 @@
 		2A253242173BB93C009379D6 /* EmojiPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiPageView.m; sourceTree = "<group>"; };
 		2A253244173BB96A009379D6 /* EmojiKeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiKeyBoardView.h; sourceTree = "<group>"; };
 		2A253245173BB96A009379D6 /* EmojiKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiKeyBoardView.m; sourceTree = "<group>"; };
+		2A3BC99D174B5A20001A29AC /* bell_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bell_s.png; sourceTree = "<group>"; };
+		2A3BC99E174B5A20001A29AC /* car_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car_s.png; sourceTree = "<group>"; };
+		2A3BC99F174B5A20001A29AC /* characters_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = characters_s.png; sourceTree = "<group>"; };
+		2A3BC9A0174B5A20001A29AC /* face_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_s.png; sourceTree = "<group>"; };
+		2A3BC9A1174B5A20001A29AC /* flower_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flower_s.png; sourceTree = "<group>"; };
+		2A3BC9A2174B5A20001A29AC /* recent_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recent_s.png; sourceTree = "<group>"; };
+		2A3BC9A9174B79DF001A29AC /* icons_bg_separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icons_bg_separator.png; sourceTree = "<group>"; };
 		2A3D5E90171EBE42005DC720 /* EmojiKeyBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojiKeyBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A3D5E93171EBE42005DC720 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2A3D5E95171EBE42005DC720 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -156,12 +170,19 @@
 				2ACB3FC6172511AB00918598 /* face_n.png */,
 				2ACB3FC7172511AB00918598 /* flower_n.png */,
 				2ACB3FC8172511AB00918598 /* recent_n.png */,
+				2A3BC99D174B5A20001A29AC /* bell_s.png */,
+				2A3BC99E174B5A20001A29AC /* car_s.png */,
+				2A3BC99F174B5A20001A29AC /* characters_s.png */,
+				2A3BC9A0174B5A20001A29AC /* face_s.png */,
+				2A3BC9A1174B5A20001A29AC /* flower_s.png */,
+				2A3BC9A2174B5A20001A29AC /* recent_s.png */,
 				2ACB3FBD17214E8100918598 /* bg_bottom_button.png */,
 				2ACB3FC017217B4C00918598 /* choose_existing.png */,
 				2ACB3FBB172141FB00918598 /* capturephoto.png */,
 				2ACB3FCF1725212A00918598 /* corner_left.png */,
 				2ACB3FD01725212A00918598 /* corner_right.png */,
 				2ACB3FD3172523E500918598 /* tab_bg.png */,
+				2A3BC9A9174B79DF001A29AC /* icons_bg_separator.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -235,6 +256,13 @@
 				2ACB3FD21725212A00918598 /* corner_right.png in Resources */,
 				2ACB3FD4172523E500918598 /* tab_bg.png in Resources */,
 				2A6EABAF173CDDA6000BCD9B /* EmojisList.plist in Resources */,
+				2A3BC9A3174B5A20001A29AC /* bell_s.png in Resources */,
+				2A3BC9A4174B5A20001A29AC /* car_s.png in Resources */,
+				2A3BC9A5174B5A20001A29AC /* characters_s.png in Resources */,
+				2A3BC9A6174B5A20001A29AC /* face_s.png in Resources */,
+				2A3BC9A7174B5A20001A29AC /* flower_s.png in Resources */,
+				2A3BC9A8174B5A20001A29AC /* recent_s.png in Resources */,
+				2A3BC9AA174B79E0001A29AC /* icons_bg_separator.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
