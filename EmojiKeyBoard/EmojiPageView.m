@@ -8,6 +8,8 @@
 
 #import "EmojiPageView.h"
 
+#define BACKSPACE_BUTTON_TAG 10
+
 @interface EmojiPageView ()
 
 @property (nonatomic, assign) CGSize buttonSize;
@@ -28,7 +30,7 @@
 
   NSAssert(buttonTexts != nil, @"Array containing texts to be set on buttons is nil");
 
-  if ([self.buttons count] == [buttonTexts count]) {
+  if (([self.buttons count] - 1) == [buttonTexts count]) {
     // just reset text on each button
     for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
       UIButton *button = [self.buttons objectAtIndex:i];
@@ -47,6 +49,10 @@
       [button setTitle:buttonTexts[i] forState:UIControlStateNormal];
       [self addToViewButton:button];
     }
+    UIButton *button = [self createButtonAtIndex:self.rows * self.columns - 1];
+    [button setImage:[UIImage imageNamed:@"backspace_n.png"] forState:UIControlStateNormal];
+    button.tag = BACKSPACE_BUTTON_TAG;
+    [self addToViewButton:button];
   }
 }
 
@@ -89,6 +95,11 @@
 }
 
 - (void)emojiButtonPressed:(UIButton *)button {
+  if (button.tag == BACKSPACE_BUTTON_TAG) {
+    NSLog(@"Back space pressed");
+    [self.delegate emojiPageViewDidPressBackSpace:self];
+    return;
+  }
   NSLog(@"%@", button.titleLabel.text);
   [self.delegate emojiPageView:self didUseEmoji:button.titleLabel.text];
 }

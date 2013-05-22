@@ -252,10 +252,11 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
   NSUInteger rows = [self numberOfRowsForFrameSize:scrollView.bounds.size];
   NSUInteger columns = [self numberOfColumnsForFrameSize:scrollView.bounds.size];
-  NSUInteger startingIndex = index * rows * columns;
+  NSUInteger startingIndex = index * (rows * columns - 1);
+  NSUInteger endingIndex = (index + 1) * (rows * columns - 1);
   NSMutableArray *buttonTexts = [self emojiTextsForCategory:self.category
                                                   fromIndex:startingIndex
-                                                    toIndex:(startingIndex + rows * columns)];
+                                                    toIndex:endingIndex];
   NSLog(@"Setting page at index %d", index);
   [pageView setButtonTexts:buttonTexts];
   pageView.frame = CGRectMake(index * CGRectGetWidth(scrollView.bounds), 0, CGRectGetWidth(scrollView.bounds), CGRectGetHeight(scrollView.bounds));
@@ -297,7 +298,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   NSUInteger emojiCount = [[self emojiListForCategory:category] count];
   NSUInteger numberOfRows = [self numberOfRowsForFrameSize:frameSize];
   NSUInteger numberOfColumns = [self numberOfColumnsForFrameSize:frameSize];
-  NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns);
+  NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns) - 1;
 
   NSUInteger numberOfPages = (NSUInteger)ceil((float)emojiCount / numberOfEmojisOnAPage);
   NSLog(@"%d %d %d :: %d", numberOfRows, numberOfColumns, emojiCount, numberOfPages);
@@ -328,6 +329,10 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   }
   [recentEmojis insertObject:emoji atIndex:0];
   [self setRecentEmojis:recentEmojis];
+}
+
+- (void)emojiPageViewDidPressBackSpace:(EmojiPageView *)emojiPageView {
+  NSLog(@"Back button pressed");
 }
 
 @end
