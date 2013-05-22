@@ -10,15 +10,29 @@
 #import "EmojiPageView.h"
 #import "DDPageControl.h"
 
-#define BUTTON_WIDTH 35
+#define BUTTON_WIDTH 42
 #define BUTTON_HEIGHT 35
 
-#define DEFAULT_SELECTED_SEGMENT 1
+#define DEFAULT_SELECTED_SEGMENT 0
 #define PAGE_CONTROL_INDICATOR_DIAMETER 6.0
 #define RECENT_EMOJIS_MAINTAINED_COUNT 50
 
 static NSString *const segmentRecentName = @"Recent";
 NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
+
+@implementation UIColor (TDTAdditions)
+
++ (UIColor *)colorWithIntegerValue:(NSUInteger)value alpha:(CGFloat)alpha {
+  NSUInteger mask = 255;
+  NSUInteger blueValue = value & mask;
+  value >>= 8;
+  NSUInteger greenValue = value & mask;
+  value >>= 8;
+  NSUInteger redValue = value & mask;
+  return [UIColor colorWithRed:(CGFloat)(redValue / 255.0) green:(CGFloat)(greenValue / 255.0) blue:(CGFloat)(blueValue / 255.0) alpha:alpha];
+}
+
+@end
 
 
 @interface EmojiKeyBoardView () <UIScrollViewDelegate, EmojiPageViewDelegate>
@@ -75,7 +89,9 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   self = [super initWithFrame:frame];
   if (self) {
     // initialize category
-    self.category = @"People";
+    self.category = segmentRecentName;
+
+    self.backgroundColor = [UIColor colorWithIntegerValue:0xECECEC alpha:1.0];
 
     self.segmentsBar = [[[UISegmentedControl alloc] initWithItems:@[
                          [UIImage imageNamed:@"recent_n.png"],
@@ -89,8 +105,19 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     self.segmentsBar.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentsBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.segmentsBar.tintColor = [UIColor whiteColor];
-    self.segmentsBar.selectedSegmentIndex = DEFAULT_SELECTED_SEGMENT;
+
+    [self.segmentsBar setDividerImage:[UIImage imageNamed:@"icons_bg_separator.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    // fixme: when setting dividers, it places it on the current segment and the next one
+    // this misaligns the image in the current as well as the next segment
+
+    [self.segmentsBar setDividerImage:[UIImage imageNamed:@"corner_left.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [self.segmentsBar setDividerImage:[UIImage imageNamed:@"corner_right.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"unselected_center_bg.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"tab_bg.png"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+
     [self.segmentsBar addTarget:self action:@selector(categoryChangedViaSegmentsBar:) forControlEvents:UIControlEventValueChanged];
+    [self setSelectedCategoryImageInSegmentControl:self.segmentsBar AtIndex:DEFAULT_SELECTED_SEGMENT];
+    self.segmentsBar.selectedSegmentIndex = DEFAULT_SELECTED_SEGMENT;
     [self addSubview:self.segmentsBar];
 
     self.pageControl = [[DDPageControl alloc] initWithType:DDPageControlTypeOnFullOffFull];
@@ -99,6 +126,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     self.pageControl.indicatorDiameter = PAGE_CONTROL_INDICATOR_DIAMETER;
     self.pageControl.hidesForSinglePage = YES;
     self.pageControl.currentPage = 0;
+    self.pageControl.backgroundColor = [UIColor clearColor];
     CGSize pageControlSize = [self.pageControl sizeForNumberOfPages:3];
     NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category
                                                   inFrameSize:CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - CGRectGetHeight(self.segmentsBar.bounds) - pageControlSize.height)];
@@ -172,11 +200,32 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 #pragma mark event handlers
 
+- (void)setSelectedCategoryImageInSegmentControl:(UISegmentedControl *)segmentsBar AtIndex:(NSInteger)index {
+  NSArray *imagesForSelectedSegments = @[[UIImage imageNamed:@"recent_s.png"],
+                                         [UIImage imageNamed:@"face_s.png"],
+                                         [UIImage imageNamed:@"bell_s.png"],
+                                         [UIImage imageNamed:@"flower_s.png"],
+                                         [UIImage imageNamed:@"car_s.png"],
+                                         [UIImage imageNamed:@"characters_s.png"]];
+  NSArray *imagesForNonSelectedSegments = @[[UIImage imageNamed:@"recent_n.png"],
+                                            [UIImage imageNamed:@"face_n.png"],
+                                            [UIImage imageNamed:@"bell_n.png"],
+                                            [UIImage imageNamed:@"flower_n.png"],
+                                            [UIImage imageNamed:@"car_n.png"],
+                                            [UIImage imageNamed:@"characters_n.png"]];
+  for (int i=0; i < self.segmentsBar.numberOfSegments; ++i) {
+    [segmentsBar setImage:imagesForNonSelectedSegments[i] forSegmentAtIndex:i];
+  }
+  [segmentsBar setImage:imagesForSelectedSegments[index] forSegmentAtIndex:index];
+}
+
 - (void)categoryChangedViaSegmentsBar:(UISegmentedControl *)sender {
   // recalculate number of pages for new category and recreate emoji pages
   NSLog(@"%d", sender.selectedSegmentIndex);
   NSArray *categoryList = @[segmentRecentName, @"People", @"Objects", @"Nature", @"Places", @"Symbols"];
+
   self.category = categoryList[sender.selectedSegmentIndex];
+  [self setSelectedCategoryImageInSegmentControl:sender AtIndex:sender.selectedSegmentIndex];
   NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category inFrameSize:self.scrollView.bounds.size];
   self.pageControl.currentPage = 0;
   self.pageControl.numberOfPages = numberOfPages;
