@@ -224,14 +224,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   NSLog(@"%d", sender.selectedSegmentIndex);
   NSArray *categoryList = @[segmentRecentName, @"People", @"Objects", @"Nature", @"Places", @"Symbols"];
 
-  NSLog(@"%f %f %f", [sender contentOffsetForSegmentAtIndex:sender.selectedSegmentIndex].width,
-        [sender contentOffsetForSegmentAtIndex:sender.selectedSegmentIndex].height,
-        [sender widthForSegmentAtIndex:sender.selectedSegmentIndex]);
-
-  UIOffset offset = [sender contentPositionAdjustmentForSegmentType:UISegmentedControlSegmentCenter barMetrics:UIBarMetricsDefault];
-  NSLog(@"%f %f", offset.horizontal, offset.vertical);
-//  offset.horizontal = -8.0;
-//  [sender setContentPositionAdjustment:offset forSegmentType:UISegmentedControlSegmentCenter barMetrics:UIBarMetricsDefault];
   self.category = categoryList[sender.selectedSegmentIndex];
   [self setSelectedCategoryImageInSegmentControl:sender AtIndex:sender.selectedSegmentIndex];
   NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category inFrameSize:self.scrollView.bounds.size];
