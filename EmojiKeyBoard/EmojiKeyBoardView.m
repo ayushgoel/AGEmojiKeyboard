@@ -47,6 +47,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 @end
 
 @implementation EmojiKeyBoardView
+@synthesize delegate = delegate_;
 @synthesize segmentsBar = segmentsBar_;
 @synthesize pageControl = pageControl_;
 @synthesize scrollView = scrollView_;
@@ -364,9 +365,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 #pragma mark EmojiPageViewDelegate
 
-// add the emoji to recents
-- (void)emojiPageView:(EmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji {
-
+- (void)setInRecentsEmoji:(NSString *)emoji {
   NSAssert(emoji != nil, @"Emoji can't be nil");
 
   NSLog(@"%@ .... ", emoji);
@@ -380,8 +379,15 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   [self setRecentEmojis:recentEmojis];
 }
 
+// add the emoji to recents
+- (void)emojiPageView:(EmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji {
+  [self setInRecentsEmoji:emoji];
+  [self.delegate emojiKeyBoardView:self didUseEmoji:emoji];
+}
+
 - (void)emojiPageViewDidPressBackSpace:(EmojiPageView *)emojiPageView {
   NSLog(@"Back button pressed");
+  [self.delegate emojiKeyBoardViewDidPressBackSpace:self];
 }
 
 @end

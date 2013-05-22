@@ -9,7 +9,7 @@
 #import "EmojiKeyBoardViewController.h"
 #import "EmojiKeyBoardView.h"
 
-@interface EmojiKeyBoardViewController ()
+@interface EmojiKeyBoardViewController () <EmojiKeyboardViewDelegate>
 
 @property (nonatomic, retain) UITextView *textView;
 @property (nonatomic, retain) EmojiKeyBoardView *emojiKeyboardView;
@@ -25,6 +25,7 @@
   self.textView = [[[UITextView alloc] initWithFrame:self.view.frame] autorelease];
   self.textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   self.emojiKeyboardView = [[[EmojiKeyBoardView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 216)] autorelease];
+  self.emojiKeyboardView.delegate = self;
   [self.view addSubview:self.textView];
   NSLog(@"asd");
 }
@@ -34,6 +35,14 @@
   self.emojiKeyboardView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
   self.textView.inputView = self.emojiKeyboardView;
   NSLog(@"asd2");
+}
+
+- (void)emojiKeyBoardView:(EmojiKeyBoardView *)emojiKeyBoardView didUseEmoji:(NSString *)emoji {
+  NSLog(@"Controller: %@ pressed", emoji);
+}
+
+- (void)emojiKeyBoardViewDidPressBackSpace:(EmojiKeyBoardView *)emojiKeyBoardView {
+  NSLog(@"Controller: Back pressed");
 }
 
 @end
