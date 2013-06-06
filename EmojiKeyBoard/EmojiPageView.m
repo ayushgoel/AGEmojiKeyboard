@@ -9,6 +9,7 @@
 #import "EmojiPageView.h"
 
 #define BACKSPACE_BUTTON_TAG 10
+#define BUTTON_FONT_SIZE 32
 
 @interface EmojiPageView ()
 
@@ -33,17 +34,12 @@
   if (([self.buttons count] - 1) == [buttonTexts count]) {
     // just reset text on each button
     for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
-      UIButton *button = [self.buttons objectAtIndex:i];
-      if (!button) {
-        button = [self createButtonAtIndex:i];
-        [self addToViewButton:button];
-      }
-      [button setTitle:buttonTexts[i] forState:UIControlStateNormal];
+      [self.buttons[i] setTitle:buttonTexts[i] forState:UIControlStateNormal];
     }
   } else {
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.buttons = nil;
-    self.buttons = [[[NSMutableArray alloc] initWithCapacity:self.rows * self.columns] autorelease];
+    self.buttons = [NSMutableArray arrayWithCapacity:self.rows * self.columns];
     for (NSUInteger i = 0; i < [buttonTexts count]; ++i) {
       UIButton *button = [self createButtonAtIndex:i];
       [button setTitle:buttonTexts[i] forState:UIControlStateNormal];
@@ -64,19 +60,31 @@
   [self addSubview:button];
 }
 
-- (CGFloat)XMarginForButtons {
-  return ((CGRectGetWidth(self.bounds) - (self.columns * self.buttonSize.width)) / 2);
+// Padding is the expected space between two buttons.
+// Thus, space of top button = padding / 2
+// extra padding according to particular button's pos = pos * padding
+// Margin includes, size of buttons in between = pos * buttonSize
+// Thus, margin = padding / 2
+//                + pos * padding
+//                + pos * buttonSize
+
+- (CGFloat)XMarginForButtonInColumn:(NSInteger)column {
+  CGFloat padding = ((CGRectGetWidth(self.bounds) - self.columns * self.buttonSize.width) / self.columns);
+  return (padding / 2 + column * (padding + self.buttonSize.width));
 }
 
-- (CGFloat)YMarginForButtons {
-  return ((CGRectGetHeight(self.bounds) - (self.rows * self.buttonSize.height)) / 2);
+- (CGFloat)YMarginForButtonInRow:(NSInteger)rowNumber {
+  CGFloat padding = ((CGRectGetHeight(self.bounds) - self.rows * self.buttonSize.height) / self.rows);
+  return (padding / 2 + rowNumber * (padding + self.buttonSize.height));
 }
 
 - (UIButton *)createButtonAtIndex:(NSUInteger)index {
   UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-  button.titleLabel.font = [UIFont fontWithName:@"Apple color emoji" size:30];
-  button.frame = CGRectIntegral(CGRectMake([self XMarginForButtons] + self.buttonSize.width * (index % self.columns),
-                                           [self YMarginForButtons] + self.buttonSize.height * (index / self.columns),
+  button.titleLabel.font = [UIFont fontWithName:@"Apple color emoji" size:BUTTON_FONT_SIZE];
+  NSInteger row = (NSInteger)(index / self.columns);
+  NSInteger column = (NSInteger)(index % self.columns);
+  button.frame = CGRectIntegral(CGRectMake([self XMarginForButtonInColumn:column],
+                                           [self YMarginForButtonInRow:row],
                                            self.buttonSize.width,
                                            self.buttonSize.height));
   [button addTarget:self action:@selector(emojiButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
