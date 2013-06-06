@@ -112,4 +112,10 @@
   [self.delegate emojiPageView:self didUseEmoji:button.titleLabel.text];
 }
 
+- (void)dealloc {
+  self.delegate = nil;
+  self.buttons = nil;
+  [super dealloc];
+}
+
 @end
