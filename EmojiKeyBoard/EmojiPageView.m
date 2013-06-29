@@ -113,7 +113,6 @@
 }
 
 - (void)dealloc {
-  self.delegate = nil;
   self.buttons = nil;
   [super dealloc];
 }

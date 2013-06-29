@@ -151,6 +151,16 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   return self;
 }
 
+- (void)dealloc {
+  self.pageControl = nil;
+  self.scrollView = nil;
+  self.segmentsBar = nil;
+  self.category = nil;
+  self.emojis = nil;
+  [self purgePageViews];
+  [super dealloc];
+}
+
 - (void)layoutSubviews {
   CGSize pageControlSize = [self.pageControl sizeForNumberOfPages:3];
   NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category
@@ -172,28 +182,10 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
                                      CGRectGetHeight(self.bounds) - CGRectGetHeight(self.segmentsBar.bounds) - pageControlSize.height);
   [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
   self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.bounds) * currentPage, 0);
-  [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:currentPage];
-}
-
-- (void)createPagesWithNumberOfPages:(NSUInteger)numberOfPages setCurrentPage:(NSInteger)currentPage {
-  self.pageViews = nil;
-  self.pageViews = [NSMutableArray array];
   self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * numberOfPages, CGRectGetHeight(self.scrollView.bounds));
+  [self purgePageViews];
+  self.pageViews = [NSMutableArray array];
   [self setPage:currentPage];
-}
-
-// Create a pageView and add it to the scroll view.
-- (EmojiPageView *)synthesizeEmojiPageView {
-  NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.bounds.size];
-  NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.bounds.size];
-  EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
-                                                       buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
-                                                             rows:rows
-                                                          columns:columns] autorelease];
-  pageView.delegate = self;
-  [self.pageViews addObject:pageView];
-  [self.scrollView addSubview:pageView];
-  return pageView;
 }
 
 #pragma mark event handlers
@@ -224,12 +216,11 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
   self.category = categoryList[sender.selectedSegmentIndex];
   [self setSelectedCategoryImageInSegmentControl:sender AtIndex:sender.selectedSegmentIndex];
-  NSUInteger numberOfPages = [self numberOfPagesForCategory:self.category inFrameSize:self.scrollView.bounds.size];
   self.pageControl.currentPage = 0;
-  self.pageControl.numberOfPages = numberOfPages;
-  [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  self.scrollView.contentOffset = CGPointMake(0, 0);
-  [self createPagesWithNumberOfPages:numberOfPages setCurrentPage:1];
+  // This triggers layoutSubviews
+  // Choose a number that can never be equal to numberOfPages of pagecontrol else
+  // layoutSubviews would not be called
+  self.pageControl.numberOfPages = 100;
 }
 
 - (void)pageControlTouched:(DDPageControl *)sender {
@@ -266,6 +257,20 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     }
   }
   return YES;
+}
+
+// Create a pageView and add it to the scroll view.
+- (EmojiPageView *)synthesizeEmojiPageView {
+  NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.bounds.size];
+  NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.bounds.size];
+  EmojiPageView *pageView = [[[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
+                                                       buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
+                                                             rows:rows
+                                                          columns:columns] autorelease];
+  pageView.delegate = self;
+  [self.pageViews addObject:pageView];
+  [self.scrollView addSubview:pageView];
+  return pageView;
 }
 
 // return a pageView that can be used in the current scrollView.
@@ -315,6 +320,13 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   [self setEmojiPageViewInScrollView:self.scrollView atIndex:page - 1];
   [self setEmojiPageViewInScrollView:self.scrollView atIndex:page];
   [self setEmojiPageViewInScrollView:self.scrollView atIndex:page + 1];
+}
+
+- (void)purgePageViews {
+  for (EmojiPageView *page in self.pageViews) {
+    page.delegate = nil;
+  }
+  self.pageViews = nil;
 }
 
 #pragma mark data methods
