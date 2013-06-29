@@ -27,14 +27,12 @@
   self.emojiKeyboardView = [[[EmojiKeyBoardView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 216)] autorelease];
   self.emojiKeyboardView.delegate = self;
   [self.view addSubview:self.textView];
-  NSLog(@"asd");
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.emojiKeyboardView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
   self.textView.inputView = self.emojiKeyboardView;
-  NSLog(@"asd2");
 }
 
 - (void)emojiKeyBoardView:(EmojiKeyBoardView *)emojiKeyBoardView didUseEmoji:(NSString *)emoji {
