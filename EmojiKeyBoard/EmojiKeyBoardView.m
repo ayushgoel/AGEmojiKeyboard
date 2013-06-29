@@ -84,7 +84,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     [recentEmojis removeObjectsAtIndexes:indexesToBeRemoved];
   }
   [[NSUserDefaults standardUserDefaults] setObject:recentEmojis forKey:RecentUsedEmojiCharactersKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -107,12 +106,8 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     self.segmentsBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.segmentsBar.bounds));
     self.segmentsBar.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentsBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.segmentsBar.tintColor = [UIColor whiteColor];
 
     [self.segmentsBar setDividerImage:[UIImage imageNamed:@"icons_bg_separator.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    // fixme: when setting dividers, it places it on the current segment and the next one
-    // this misaligns the image in the current as well as the next segment
-
     [self.segmentsBar setDividerImage:[UIImage imageNamed:@"corner_left.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     [self.segmentsBar setDividerImage:[UIImage imageNamed:@"corner_right.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"unselected_center_bg.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -357,7 +352,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   return numberOfPages;
 }
 
-// return the emojis for a category, given a staring and an endix index
+// return the emojis for a category, given a staring and an ending index
 - (NSMutableArray *)emojiTextsForCategory:(NSString *)category fromIndex:(NSUInteger)start toIndex:(NSUInteger)end {
   NSArray *emojis = [self emojiListForCategory:category];
   end = ([emojis count] > end)? end : [emojis count];
@@ -370,7 +365,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 - (void)setInRecentsEmoji:(NSString *)emoji {
   NSAssert(emoji != nil, @"Emoji can't be nil");
 
-  NSLog(@"%@ .... ", emoji);
   NSMutableArray *recentEmojis = [self recentEmojis];
   for (int i = 0; i < [recentEmojis count]; ++i) {
     if ([recentEmojis[i] isEqualToString:emoji]) {
