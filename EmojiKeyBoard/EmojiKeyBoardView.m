@@ -17,6 +17,8 @@
 #define PAGE_CONTROL_INDICATOR_DIAMETER 6.0
 #define RECENT_EMOJIS_MAINTAINED_COUNT 50
 
+#define BACKGROUND_COLOR 0xECECEC
+
 static NSString *const segmentRecentName = @"Recent";
 NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
@@ -92,7 +94,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     // initialize category
     self.category = segmentRecentName;
 
-    self.backgroundColor = [UIColor colorWithIntegerValue:0xECECEC alpha:1.0];
+    self.backgroundColor = [UIColor colorWithIntegerValue:BACKGROUND_COLOR alpha:1.0];
 
     self.segmentsBar = [[[UISegmentedControl alloc] initWithItems:@[
                          [UIImage imageNamed:@"recent_n.png"],
