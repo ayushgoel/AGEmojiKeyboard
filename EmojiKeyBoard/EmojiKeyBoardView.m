@@ -70,7 +70,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 // recent emojis are backed in NSUserDefaults to save them across app restarts.
 - (NSMutableArray *)recentEmojis {
   NSArray *emojis = [[NSUserDefaults standardUserDefaults] arrayForKey:RecentUsedEmojiCharactersKey];
-  NSMutableArray *recentEmojis = [emojis mutableCopy];
+  NSMutableArray *recentEmojis = [[emojis mutableCopy] autorelease];
   if (recentEmojis == nil) {
     recentEmojis = [NSMutableArray array];
   }
