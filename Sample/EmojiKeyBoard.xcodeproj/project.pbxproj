@@ -55,8 +55,8 @@
 		2A515B36177F18B9009C90AC /* unselected_center_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A515B12177F18B9009C90AC /* unselected_center_bg@2x.png */; };
 		2A515B39177F191A009C90AC /* DDPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A515B38177F191A009C90AC /* DDPageControl.m */; };
 		2A6EABAF173CDDA6000BCD9B /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A6EABAE173CDDA6000BCD9B /* EmojisList.plist */; };
-		2AF66E7417882B0700BBDB1D /* EmojiKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF66E7217882B0700BBDB1D /* EmojiKeyBoardView.m */; };
-		2AF66E7517882B0700BBDB1D /* EmojiPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF66E7317882B0700BBDB1D /* EmojiPageView.m */; };
+		2AA48D1217882C5E00B7F11B /* EmojiKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA48D1017882C5E00B7F11B /* EmojiKeyBoardView.m */; };
+		2AA48D1317882C5E00B7F11B /* EmojiPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA48D1117882C5E00B7F11B /* EmojiPageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,10 +114,10 @@
 		2A515B37177F191A009C90AC /* DDPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDPageControl.h; path = Resources/lib/DDPageControl.h; sourceTree = "<group>"; };
 		2A515B38177F191A009C90AC /* DDPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDPageControl.m; path = Resources/lib/DDPageControl.m; sourceTree = "<group>"; };
 		2A6EABAE173CDDA6000BCD9B /* EmojisList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EmojisList.plist; sourceTree = "<group>"; };
-		2AF66E7017882B0700BBDB1D /* EmojiKeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiKeyBoardView.h; sourceTree = SOURCE_ROOT; };
-		2AF66E7117882B0700BBDB1D /* EmojiPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiPageView.h; sourceTree = SOURCE_ROOT; };
-		2AF66E7217882B0700BBDB1D /* EmojiKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiKeyBoardView.m; sourceTree = SOURCE_ROOT; };
-		2AF66E7317882B0700BBDB1D /* EmojiPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiPageView.m; sourceTree = SOURCE_ROOT; };
+		2AA48D0E17882C5E00B7F11B /* EmojiKeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EmojiKeyBoardView.h; path = ../../EmojiKeyBoardView.h; sourceTree = "<group>"; };
+		2AA48D0F17882C5E00B7F11B /* EmojiPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EmojiPageView.h; path = ../../EmojiPageView.h; sourceTree = "<group>"; };
+		2AA48D1017882C5E00B7F11B /* EmojiKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EmojiKeyBoardView.m; path = ../../EmojiKeyBoardView.m; sourceTree = "<group>"; };
+		2AA48D1117882C5E00B7F11B /* EmojiPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EmojiPageView.m; path = ../../EmojiPageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,10 +168,10 @@
 				2A3D5EA3171EBE42005DC720 /* EmojiKeyBoardAppDelegate.m */,
 				2A3D5EAB171EBE42005DC720 /* EmojiKeyBoardViewController.h */,
 				2A3D5EAC171EBE42005DC720 /* EmojiKeyBoardViewController.m */,
-				2AF66E7017882B0700BBDB1D /* EmojiKeyBoardView.h */,
-				2AF66E7217882B0700BBDB1D /* EmojiKeyBoardView.m */,
-				2AF66E7117882B0700BBDB1D /* EmojiPageView.h */,
-				2AF66E7317882B0700BBDB1D /* EmojiPageView.m */,
+				2AA48D0E17882C5E00B7F11B /* EmojiKeyBoardView.h */,
+				2AA48D1017882C5E00B7F11B /* EmojiKeyBoardView.m */,
+				2AA48D0F17882C5E00B7F11B /* EmojiPageView.h */,
+				2AA48D1117882C5E00B7F11B /* EmojiPageView.m */,
 				2A3D5E9A171EBE42005DC720 /* Supporting Files */,
 				2A515AEB177F17CB009C90AC /* Resources */,
 			);
@@ -361,8 +361,8 @@
 				2A3D5EA4171EBE42005DC720 /* EmojiKeyBoardAppDelegate.m in Sources */,
 				2A3D5EAD171EBE42005DC720 /* EmojiKeyBoardViewController.m in Sources */,
 				2A515B39177F191A009C90AC /* DDPageControl.m in Sources */,
-				2AF66E7417882B0700BBDB1D /* EmojiKeyBoardView.m in Sources */,
-				2AF66E7517882B0700BBDB1D /* EmojiPageView.m in Sources */,
+				2AA48D1217882C5E00B7F11B /* EmojiKeyBoardView.m in Sources */,
+				2AA48D1317882C5E00B7F11B /* EmojiPageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
