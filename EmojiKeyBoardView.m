@@ -67,6 +67,11 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   return emojis_;
 }
 
+- (NSString *)categoryNameAtIndex:(NSUInteger)index {
+  NSArray *categoryList = @[segmentRecentName, @"People", @"Objects", @"Nature", @"Places", @"Symbols"];
+  return categoryList[index];
+}
+
 // recent emojis are backed in NSUserDefaults to save them across app restarts.
 - (NSMutableArray *)recentEmojis {
   NSArray *emojis = [[NSUserDefaults standardUserDefaults] arrayForKey:RecentUsedEmojiCharactersKey];
@@ -91,7 +96,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   self = [super initWithFrame:frame];
   if (self) {
     // initialize category
-    self.category = segmentRecentName;
+    self.category = [self categoryNameAtIndex:DEFAULT_SELECTED_SEGMENT];
 
     self.backgroundColor = [UIColor colorWithIntegerValue:BACKGROUND_COLOR alpha:1.0];
 
@@ -212,9 +217,8 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 - (void)categoryChangedViaSegmentsBar:(UISegmentedControl *)sender {
   // recalculate number of pages for new category and recreate emoji pages
   NSLog(@"%d", sender.selectedSegmentIndex);
-  NSArray *categoryList = @[segmentRecentName, @"People", @"Objects", @"Nature", @"Places", @"Symbols"];
 
-  self.category = categoryList[sender.selectedSegmentIndex];
+  self.category = [self categoryNameAtIndex:sender.selectedSegmentIndex];
   [self setSelectedCategoryImageInSegmentControl:sender AtIndex:sender.selectedSegmentIndex];
   self.pageControl.currentPage = 0;
   // This triggers layoutSubviews
