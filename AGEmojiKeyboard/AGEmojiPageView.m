@@ -97,7 +97,7 @@
     self.buttonSize = buttonSize;
     self.columns = columns;
     self.rows = rows;
-    self.buttons = [[[NSMutableArray alloc] initWithCapacity:rows * columns] autorelease];
+    self.buttons = [[NSMutableArray alloc] initWithCapacity:rows * columns];
   }
   return self;
 }
@@ -110,11 +110,6 @@
   }
   NSLog(@"%@", button.titleLabel.text);
   [self.delegate emojiPageView:self didUseEmoji:button.titleLabel.text];
-}
-
-- (void)dealloc {
-  self.buttons = nil;
-  [super dealloc];
 }
 
 @end
