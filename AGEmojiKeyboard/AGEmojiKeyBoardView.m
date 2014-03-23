@@ -1,14 +1,13 @@
 //
-//  EmojiKeyBoardView.m
-//  EmojiKeyBoard
+//  AGEmojiKeyboardView.m
+//  AGEmojiKeyboard
 //
 //  Created by Ayush on 09/05/13.
 //  Copyright (c) 2013 Ayush. All rights reserved.
 //
 
-#import "EmojiKeyBoardView.h"
-#import "EmojiPageView.h"
-#import "DDPageControl.h"
+#import "AGEmojiKeyBoardView.h"
+#import "AGEmojiPageView.h"
 
 #define BUTTON_WIDTH 45
 #define BUTTON_HEIGHT 37
@@ -40,7 +39,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 @interface EmojiKeyBoardView () <UIScrollViewDelegate, EmojiPageViewDelegate>
 
 @property (nonatomic, retain) UISegmentedControl *segmentsBar;
-@property (nonatomic, retain) DDPageControl *pageControl;
+@property (nonatomic, retain) UIPageControl *pageControl;
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) NSDictionary *emojis;
 @property (nonatomic, retain) NSMutableArray *pageViews;
@@ -123,10 +122,10 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     self.segmentsBar.selectedSegmentIndex = DEFAULT_SELECTED_SEGMENT;
     [self addSubview:self.segmentsBar];
 
-    self.pageControl = [[DDPageControl alloc] initWithType:DDPageControlTypeOnFullOffFull];
-    self.pageControl.onColor = [UIColor darkGrayColor];
-    self.pageControl.offColor = [UIColor lightGrayColor];
-    self.pageControl.indicatorDiameter = PAGE_CONTROL_INDICATOR_DIAMETER;
+    self.pageControl = [[UIPageControl alloc] init];
+//    self.pageControl.onColor = [UIColor darkGrayColor];
+//    self.pageControl.offColor = [UIColor lightGrayColor];
+//    self.pageControl.indicatorDiameter = PAGE_CONTROL_INDICATOR_DIAMETER;
     self.pageControl.hidesForSinglePage = YES;
     self.pageControl.currentPage = 0;
     self.pageControl.backgroundColor = [UIColor clearColor];
@@ -227,7 +226,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   self.pageControl.numberOfPages = 100;
 }
 
-- (void)pageControlTouched:(DDPageControl *)sender {
+- (void)pageControlTouched:(UIPageControl *)sender {
   NSLog(@"%d", sender.currentPage);
   CGRect bounds = self.scrollView.bounds;
   bounds.origin.x = CGRectGetWidth(bounds) * sender.currentPage;

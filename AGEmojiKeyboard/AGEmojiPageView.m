@@ -1,12 +1,12 @@
 //
-//  EmojiPageView.m
-//  EmojiKeyBoard
+//  AGEmojiPageView.m
+//  AGEmojiKeyboard
 //
 //  Created by Ayush on 09/05/13.
 //  Copyright (c) 2013 Ayush. All rights reserved.
 //
 
-#import "EmojiPageView.h"
+#import "AGEmojiPageView.h"
 
 #define BACKSPACE_BUTTON_TAG 10
 #define BUTTON_FONT_SIZE 32
