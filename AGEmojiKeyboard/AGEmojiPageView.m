@@ -21,11 +21,6 @@
 @end
 
 @implementation EmojiPageView
-@synthesize buttonSize = buttonSize_;
-@synthesize buttons = buttons_;
-@synthesize columns = columns_;
-@synthesize rows = rows_;
-@synthesize delegate = delegate_;
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
 
@@ -94,10 +89,10 @@
 - (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize rows:(NSUInteger)rows columns:(NSUInteger)columns {
   self = [super initWithFrame:frame];
   if (self) {
-    self.buttonSize = buttonSize;
-    self.columns = columns;
-    self.rows = rows;
-    self.buttons = [[NSMutableArray alloc] initWithCapacity:rows * columns];
+    _buttonSize = buttonSize;
+    _columns = columns;
+    _rows = rows;
+    _buttons = [[NSMutableArray alloc] initWithCapacity:rows * columns];
   }
   return self;
 }

@@ -48,22 +48,15 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 @end
 
 @implementation EmojiKeyBoardView
-@synthesize delegate = delegate_;
-@synthesize segmentsBar = segmentsBar_;
-@synthesize pageControl = pageControl_;
-@synthesize scrollView = scrollView_;
-@synthesize emojis = emojis_;
-@synthesize pageViews = pageViews_;
-@synthesize category = category_;
 
 - (NSDictionary *)emojis {
-  if (!emojis_) {
+  if (!_emojis) {
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"EmojisList"
                                                           ofType:@"plist"];
-    emojis_ = [[NSDictionary dictionaryWithContentsOfFile:plistPath] copy];
+    _emojis = [[NSDictionary dictionaryWithContentsOfFile:plistPath] copy];
     NSLog(@"File read");
   }
-  return emojis_;
+  return _emojis;
 }
 
 - (NSString *)categoryNameAtIndex:(NSUInteger)index {
