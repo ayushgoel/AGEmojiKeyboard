@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4B87FB1E-D81C-4120-A029-A0AF76986B4E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AGEmojiKeyboardSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>CD96B8B9-5ACA-4D64-A7F3-5D65904DA474</key>
+		<string>ssh://github.com/ayushgoel/iOS-emoji-keyboard.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AGEmojiKeyboardSample/AGEmojiKeyboardSample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>CD96B8B9-5ACA-4D64-A7F3-5D65904DA474</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/ayushgoel/iOS-emoji-keyboard.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CD96B8B9-5ACA-4D64-A7F3-5D65904DA474</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CD96B8B9-5ACA-4D64-A7F3-5D65904DA474</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EmojiKeyBoard</string>
+		</dict>
+	</array>
+</dict>
+</plist>
