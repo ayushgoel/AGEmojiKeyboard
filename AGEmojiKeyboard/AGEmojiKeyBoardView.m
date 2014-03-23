@@ -81,7 +81,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
                                                                     [UIImage imageNamed:@"car_n.png"],
                                                                     [UIImage imageNamed:@"characters_n.png"] ]];
     self.segmentsBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.segmentsBar.bounds));
-    self.segmentsBar.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentsBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     [self.segmentsBar setDividerImage:[UIImage imageNamed:@"icons_bg_separator.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
