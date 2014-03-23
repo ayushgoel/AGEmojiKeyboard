@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/ayushgoel/iOS-emoji-keyboard"
 #  s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
 
-  s.license          = 'MIT'
+  s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { "Ayush Goel" => "ayushgoel111@gmail.com" }
   s.source           = { :git => "https://github.com/ayushgoel/iOS-emoji-keyboard.git", :tag => "#{s.version}" }
 
