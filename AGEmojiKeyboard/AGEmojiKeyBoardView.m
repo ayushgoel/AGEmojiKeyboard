@@ -16,24 +16,8 @@
 #define PAGE_CONTROL_INDICATOR_DIAMETER 6.0
 #define RECENT_EMOJIS_MAINTAINED_COUNT 50
 
-#define BACKGROUND_COLOR 0xECECEC
-
 static NSString *const segmentRecentName = @"Recent";
 NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
-
-@implementation UIColor (TDTAdditions)
-
-+ (UIColor *)colorWithIntegerValue:(NSUInteger)value alpha:(CGFloat)alpha {
-  NSUInteger mask = 255;
-  NSUInteger blueValue = value & mask;
-  value >>= 8;
-  NSUInteger greenValue = value & mask;
-  value >>= 8;
-  NSUInteger redValue = value & mask;
-  return [UIColor colorWithRed:(CGFloat)(redValue / 255.0) green:(CGFloat)(greenValue / 255.0) blue:(CGFloat)(blueValue / 255.0) alpha:alpha];
-}
-
-@end
 
 
 @interface AGEmojiKeyboardView () <UIScrollViewDelegate, AGEmojiPageViewDelegate>
@@ -89,8 +73,6 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   if (self) {
     // initialize category
     self.category = [self categoryNameAtIndex:DEFAULT_SELECTED_SEGMENT];
-
-    self.backgroundColor = [UIColor colorWithIntegerValue:BACKGROUND_COLOR alpha:1.0];
 
     self.segmentsBar = [[UISegmentedControl alloc] initWithItems:@[ [UIImage imageNamed:@"recent_n.png"],
                                                                     [UIImage imageNamed:@"face_n.png"],
