@@ -14,7 +14,7 @@
 
 @interface AGEmojiKeyboardView : UIView
 
-@property (nonatomic, assign) id<AGEmojiKeyboardViewDelegate> delegate;
+@property (nonatomic, weak) id<AGEmojiKeyboardViewDelegate> delegate;
 
 @end
 

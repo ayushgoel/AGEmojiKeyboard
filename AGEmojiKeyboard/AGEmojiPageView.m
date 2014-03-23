@@ -13,10 +13,10 @@
 
 @interface AGEmojiPageView ()
 
-@property (nonatomic, assign) CGSize buttonSize;
-@property (nonatomic, retain) NSMutableArray *buttons;
-@property (nonatomic, assign) NSUInteger columns;
-@property (nonatomic, assign) NSUInteger rows;
+@property (nonatomic) CGSize buttonSize;
+@property (nonatomic) NSMutableArray *buttons;
+@property (nonatomic) NSUInteger columns;
+@property (nonatomic) NSUInteger rows;
 
 @end
 

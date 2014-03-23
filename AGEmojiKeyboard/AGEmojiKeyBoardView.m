@@ -38,12 +38,12 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 @interface AGEmojiKeyboardView () <UIScrollViewDelegate, AGEmojiPageViewDelegate>
 
-@property (nonatomic, retain) UISegmentedControl *segmentsBar;
-@property (nonatomic, retain) UIPageControl *pageControl;
-@property (nonatomic, retain) UIScrollView *scrollView;
-@property (nonatomic, retain) NSDictionary *emojis;
-@property (nonatomic, retain) NSMutableArray *pageViews;
-@property (nonatomic, retain) NSString *category;
+@property (nonatomic) UISegmentedControl *segmentsBar;
+@property (nonatomic) UIPageControl *pageControl;
+@property (nonatomic) UIScrollView *scrollView;
+@property (nonatomic) NSDictionary *emojis;
+@property (nonatomic) NSMutableArray *pageViews;
+@property (nonatomic) NSString *category;
 
 @end
 
