@@ -36,7 +36,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 @end
 
 
-@interface EmojiKeyBoardView () <UIScrollViewDelegate, EmojiPageViewDelegate>
+@interface AGEmojiKeyboardView () <UIScrollViewDelegate, AGEmojiPageViewDelegate>
 
 @property (nonatomic, retain) UISegmentedControl *segmentsBar;
 @property (nonatomic, retain) UIPageControl *pageControl;
@@ -47,7 +47,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 @end
 
-@implementation EmojiKeyBoardView
+@implementation AGEmojiKeyboardView
 
 - (NSDictionary *)emojis {
   if (!_emojis) {
@@ -235,7 +235,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   if (index >= self.pageControl.numberOfPages) {
     return NO;
   }
-  for (EmojiPageView *page in self.pageViews) {
+  for (AGEmojiPageView *page in self.pageViews) {
     if ((page.frame.origin.x / CGRectGetWidth(self.scrollView.bounds)) == index) {
       return NO;
     }
@@ -244,10 +244,10 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 }
 
 // Create a pageView and add it to the scroll view.
-- (EmojiPageView *)synthesizeEmojiPageView {
+- (AGEmojiPageView *)synthesizeEmojiPageView {
   NSUInteger rows = [self numberOfRowsForFrameSize:self.scrollView.bounds.size];
   NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.bounds.size];
-  EmojiPageView *pageView = [[EmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
+  AGEmojiPageView *pageView = [[AGEmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
                                                       buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
                                                             rows:rows
                                                          columns:columns];
@@ -262,9 +262,9 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 // If all are in use i.e. are of current page or neighbours
 // of current page, we create a new one
 
-- (EmojiPageView *)usableEmojiPageView {
-  EmojiPageView *pageView = nil;
-  for (EmojiPageView *page in self.pageViews) {
+- (AGEmojiPageView *)usableEmojiPageView {
+  AGEmojiPageView *pageView = nil;
+  for (AGEmojiPageView *page in self.pageViews) {
     NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(self.scrollView.bounds);
     if (abs(pageNumber - self.pageControl.currentPage) > 1) {
       pageView = page;
@@ -284,7 +284,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     return;
   }
 
-  EmojiPageView *pageView = [self usableEmojiPageView];
+  AGEmojiPageView *pageView = [self usableEmojiPageView];
 
   NSUInteger rows = [self numberOfRowsForFrameSize:scrollView.bounds.size];
   NSUInteger columns = [self numberOfColumnsForFrameSize:scrollView.bounds.size];
@@ -307,7 +307,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 }
 
 - (void)purgePageViews {
-  for (EmojiPageView *page in self.pageViews) {
+  for (AGEmojiPageView *page in self.pageViews) {
     page.delegate = nil;
   }
   self.pageViews = nil;
@@ -372,12 +372,12 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 }
 
 // add the emoji to recents
-- (void)emojiPageView:(EmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji {
+- (void)emojiPageView:(AGEmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji {
   [self setInRecentsEmoji:emoji];
   [self.delegate emojiKeyBoardView:self didUseEmoji:emoji];
 }
 
-- (void)emojiPageViewDidPressBackSpace:(EmojiPageView *)emojiPageView {
+- (void)emojiPageViewDidPressBackSpace:(AGEmojiPageView *)emojiPageView {
   NSLog(@"Back button pressed");
   [self.delegate emojiKeyBoardViewDidPressBackSpace:self];
 }

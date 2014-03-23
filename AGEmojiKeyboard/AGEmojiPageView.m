@@ -11,7 +11,7 @@
 #define BACKSPACE_BUTTON_TAG 10
 #define BUTTON_FONT_SIZE 32
 
-@interface EmojiPageView ()
+@interface AGEmojiPageView ()
 
 @property (nonatomic, assign) CGSize buttonSize;
 @property (nonatomic, retain) NSMutableArray *buttons;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation EmojiPageView
+@implementation AGEmojiPageView
 
 - (void)setButtonTexts:(NSMutableArray *)buttonTexts {
 

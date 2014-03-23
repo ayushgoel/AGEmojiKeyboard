@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol EmojiPageViewDelegate;
+@protocol AGEmojiPageViewDelegate;
 
-@interface EmojiPageView : UIView
+@interface AGEmojiPageView : UIView
 
-@property (nonatomic, assign) id<EmojiPageViewDelegate> delegate;
+@property (nonatomic, assign) id<AGEmojiPageViewDelegate> delegate;
 
 /**
  Creates and returns an EmojiPageView
@@ -34,19 +34,19 @@
 
 @end
 
-@protocol EmojiPageViewDelegate <NSObject>
+@protocol AGEmojiPageViewDelegate <NSObject>
 
 /**
  Delegate method called when user taps an emoji button
  @param emojiPageView EmojiPageView object on which user has tapped.
  @param emoji Emoji pressed by user
  */
-- (void)emojiPageView:(EmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji;
+- (void)emojiPageView:(AGEmojiPageView *)emojiPageView didUseEmoji:(NSString *)emoji;
 
 /**
  Delegate method called when user taps on the backspace button
  @param emojiPageView EmojiPageView object on which user has tapped.
  */
-- (void)emojiPageViewDidPressBackSpace:(EmojiPageView *)emojiPageView;
+- (void)emojiPageViewDidPressBackSpace:(AGEmojiPageView *)emojiPageView;
 
 @end
