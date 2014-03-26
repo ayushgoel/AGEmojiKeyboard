@@ -48,6 +48,34 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   return categoryList[index];
 }
 
+- (NSArray *)imagesForSelectedSegments {
+  static NSMutableArray *array;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    array = [NSMutableArray array];
+    for (AGEmojiKeyboardViewCategoryImage i = AGEmojiKeyboardViewCategoryImageRecent;
+         i <= AGEmojiKeyboardViewCategoryImageCharacters;
+         ++i) {
+      [array addObject:[self.dataSource emojiKeyboardView:self imageForSelectedCategory:i]];
+    }
+  });
+  return array;
+}
+
+- (NSArray *)imagesForNonSelectedSegments {
+  static NSMutableArray *array;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    array = [NSMutableArray array];
+    for (AGEmojiKeyboardViewCategoryImage i = AGEmojiKeyboardViewCategoryImageRecent;
+         i <= AGEmojiKeyboardViewCategoryImageCharacters;
+         ++i) {
+      [array addObject:[self.dataSource emojiKeyboardView:self imageForNonSelectedCategory:i]];
+    }
+  });
+  return array;
+}
+
 // recent emojis are backed in NSUserDefaults to save them across app restarts.
 - (NSMutableArray *)recentEmojis {
   NSArray *emojis = [[NSUserDefaults standardUserDefaults] arrayForKey:RecentUsedEmojiCharactersKey];
@@ -67,19 +95,16 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   [[NSUserDefaults standardUserDefaults] setObject:recentEmojis forKey:RecentUsedEmojiCharactersKey];
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame dataSource:(id<AGEmojiKeyboardViewDataSource>)dataSource {
   self = [super initWithFrame:frame];
   if (self) {
     // initialize category
+
+    _dataSource = dataSource;
+
     self.category = [self categoryNameAtIndex:DEFAULT_SELECTED_SEGMENT];
 
-    self.segmentsBar = [[UISegmentedControl alloc] initWithItems:@[ [UIImage imageNamed:@"recent_n.png"],
-                                                                    [UIImage imageNamed:@"face_n.png"],
-                                                                    [UIImage imageNamed:@"bell_n.png"],
-                                                                    [UIImage imageNamed:@"flower_n.png"],
-                                                                    [UIImage imageNamed:@"car_n.png"],
-                                                                    [UIImage imageNamed:@"characters_n.png"] ]];
+    self.segmentsBar = [[UISegmentedControl alloc] initWithItems:self.imagesForSelectedSegments];
     self.segmentsBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.segmentsBar.bounds));
     self.segmentsBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 

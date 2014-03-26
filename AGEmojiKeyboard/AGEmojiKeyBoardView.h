@@ -10,13 +10,36 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, AGEmojiKeyboardViewCategoryImage) {
+  AGEmojiKeyboardViewCategoryImageRecent,
+  AGEmojiKeyboardViewCategoryImageFace,
+  AGEmojiKeyboardViewCategoryImageBell,
+  AGEmojiKeyboardViewCategoryImageFlower,
+  AGEmojiKeyboardViewCategoryImageCar,
+  AGEmojiKeyboardViewCategoryImageCharacters
+};
+
 @protocol AGEmojiKeyboardViewDelegate;
+@protocol AGEmojiKeyboardViewDataSource;
 
 @interface AGEmojiKeyboardView : UIView
 
 @property (nonatomic, weak) id<AGEmojiKeyboardViewDelegate> delegate;
+@property (nonatomic, weak) id<AGEmojiKeyboardViewDataSource> dataSource;
+
+- (id)initWithFrame:(CGRect)frame dataSource:(id<AGEmojiKeyboardViewDataSource>)dataSource;
 
 @end
+
+
+@protocol AGEmojiKeyboardViewDataSource <NSObject>
+
+- (UIImage *)emojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView imageForSelectedCategory:(AGEmojiKeyboardViewCategoryImage)category;
+
+- (UIImage *)emojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView imageForNonSelectedCategory:(AGEmojiKeyboardViewCategoryImage)category;
+
+@end
+
 
 @protocol AGEmojiKeyboardViewDelegate <NSObject>
 
