@@ -186,10 +186,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   self.category = [self categoryNameAtIndex:sender.selectedSegmentIndex];
   [self setSelectedCategoryImageInSegmentControl:sender AtIndex:sender.selectedSegmentIndex];
   self.pageControl.currentPage = 0;
-  // This triggers layoutSubviews
-  // Choose a number that can never be equal to numberOfPages of pagecontrol else
-  // layoutSubviews would not be called
-  self.pageControl.numberOfPages = 100;
+  [self setNeedsLayout];
 }
 
 - (void)pageControlTouched:(UIPageControl *)sender {
