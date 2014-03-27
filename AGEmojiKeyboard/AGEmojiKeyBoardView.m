@@ -108,21 +108,12 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     self.segmentsBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.segmentsBar.bounds));
     self.segmentsBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
-    [self.segmentsBar setDividerImage:[UIImage imageNamed:@"icons_bg_separator.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.segmentsBar setDividerImage:[UIImage imageNamed:@"corner_left.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [self.segmentsBar setDividerImage:[UIImage imageNamed:@"corner_right.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"unselected_center_bg.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.segmentsBar setBackgroundImage:[UIImage imageNamed:@"tab_bg.png"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-
     [self.segmentsBar addTarget:self action:@selector(categoryChangedViaSegmentsBar:) forControlEvents:UIControlEventValueChanged];
     [self setSelectedCategoryImageInSegmentControl:self.segmentsBar AtIndex:DEFAULT_SELECTED_SEGMENT];
     self.segmentsBar.selectedSegmentIndex = DEFAULT_SELECTED_SEGMENT;
     [self addSubview:self.segmentsBar];
 
     self.pageControl = [[UIPageControl alloc] init];
-//    self.pageControl.onColor = [UIColor darkGrayColor];
-//    self.pageControl.offColor = [UIColor lightGrayColor];
-//    self.pageControl.indicatorDiameter = PAGE_CONTROL_INDICATOR_DIAMETER;
     self.pageControl.hidesForSinglePage = YES;
     self.pageControl.currentPage = 0;
     self.pageControl.backgroundColor = [UIColor clearColor];
