@@ -69,6 +69,13 @@ typedef NS_ENUM(NSInteger, AGEmojiKeyboardViewCategoryImage) {
 - (UIImage *)emojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView
    imageForNonSelectedCategory:(AGEmojiKeyboardViewCategoryImage)category;
 
+/**
+ Method called on dataSource to get the back button image to be shown in the view.
+
+ @param emojiKeyBoardView EmojiKeyBoardView object on which user has tapped.
+ */
+- (UIImage *)backSpaceButtonImageForEmojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView;
+
 @end
 
 

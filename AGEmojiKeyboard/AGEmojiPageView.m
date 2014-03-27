@@ -17,6 +17,7 @@
 @property (nonatomic) NSMutableArray *buttons;
 @property (nonatomic) NSUInteger columns;
 @property (nonatomic) NSUInteger rows;
+@property (nonatomic) UIImage *backSpaceButtonImage;
 
 @end
 
@@ -41,7 +42,7 @@
       [self addToViewButton:button];
     }
     UIButton *button = [self createButtonAtIndex:self.rows * self.columns - 1];
-    [button setImage:[UIImage imageNamed:@"backspace_n.png"] forState:UIControlStateNormal];
+    [button setImage:self.backSpaceButtonImage forState:UIControlStateNormal];
     button.tag = BACKSPACE_BUTTON_TAG;
     [self addToViewButton:button];
   }
@@ -86,9 +87,14 @@
   return button;
 }
 
-- (id)initWithFrame:(CGRect)frame buttonSize:(CGSize)buttonSize rows:(NSUInteger)rows columns:(NSUInteger)columns {
+- (id)initWithFrame:(CGRect)frame
+backSpaceButtonImage:(UIImage *)backSpaceButtonImage
+         buttonSize:(CGSize)buttonSize
+               rows:(NSUInteger)rows
+            columns:(NSUInteger)columns {
   self = [super initWithFrame:frame];
   if (self) {
+    _backSpaceButtonImage = backSpaceButtonImage;
     _buttonSize = buttonSize;
     _columns = columns;
     _rows = rows;

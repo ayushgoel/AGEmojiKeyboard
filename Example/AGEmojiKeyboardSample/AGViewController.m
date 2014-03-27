@@ -79,4 +79,10 @@
   return img;
 }
 
+- (UIImage *)backSpaceButtonImageForEmojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView {
+  UIImage *img = [self randomImage];
+  [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+  return img;
+}
+
 @end
