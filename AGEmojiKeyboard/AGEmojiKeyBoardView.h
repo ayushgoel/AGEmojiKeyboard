@@ -49,15 +49,15 @@ typedef NS_ENUM(NSInteger, AGEmojiKeyboardViewCategoryImage) {
  */
 @protocol AGEmojiKeyboardViewDataSource <NSObject>
 
-- (UIImage *)emojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView imageForSelectedCategory:(AGEmojiKeyboardViewCategoryImage)category;
 /**
  Method called on dataSource to get the category image when selected.
 
  @param emojiKeyBoardView EmojiKeyBoardView object on which user has tapped.
 
-- (UIImage *)emojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView imageForNonSelectedCategory:(AGEmojiKeyboardViewCategoryImage)category;
  @param category category to get the image for. @see AGEmojiKeyboardViewCategoryImage
  */
+- (UIImage *)emojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView
+      imageForSelectedCategory:(AGEmojiKeyboardViewCategoryImage)category;
 
 /**
  Method called on dataSource to get the category image when not-selected.
@@ -66,6 +66,8 @@ typedef NS_ENUM(NSInteger, AGEmojiKeyboardViewCategoryImage) {
 
  @param category category to get the image for. @see AGEmojiKeyboardViewCategoryImage
  */
+- (UIImage *)emojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView
+   imageForNonSelectedCategory:(AGEmojiKeyboardViewCategoryImage)category;
 
 @end
 
@@ -82,7 +84,8 @@ typedef NS_ENUM(NSInteger, AGEmojiKeyboardViewCategoryImage) {
 
  @param emoji Emoji used by user
  */
-- (void)emojiKeyBoardView:(AGEmojiKeyboardView *)emojiKeyBoardView didUseEmoji:(NSString *)emoji;
+- (void)emojiKeyBoardView:(AGEmojiKeyboardView *)emojiKeyBoardView
+              didUseEmoji:(NSString *)emoji;
 
 /**
  Delegate method called when user taps on the backspace button
