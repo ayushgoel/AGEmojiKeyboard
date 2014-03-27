@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0E13CF2B-D6C4-41C4-986D-51EBE4365520</string>
+	<string>72291C05-3F5B-4C54-91BC-3965E50EA1D5</string>
 	<key>IDESourceControlProjectName</key>
 	<string>AGEmojiKeyboardSample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>CD96B8B9-5ACA-4D64-A7F3-5D65904DA474</key>
-		<string>ssh://github.com/ayushgoel/iOS-emoji-keyboard.git</string>
+		<key>5B591E1B-1442-42D6-98A9-8E83260D1EBF</key>
+		<string>ssh://github.com/ayushgoel/AGEmojiKeyboard.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Example/AGEmojiKeyboardSample.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>CD96B8B9-5ACA-4D64-A7F3-5D65904DA474</key>
+		<key>5B591E1B-1442-42D6-98A9-8E83260D1EBF</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/ayushgoel/iOS-emoji-keyboard.git</string>
+	<string>ssh://github.com/ayushgoel/AGEmojiKeyboard.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CD96B8B9-5ACA-4D64-A7F3-5D65904DA474</string>
+	<string>5B591E1B-1442-42D6-98A9-8E83260D1EBF</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CD96B8B9-5ACA-4D64-A7F3-5D65904DA474</string>
+			<string>5B591E1B-1442-42D6-98A9-8E83260D1EBF</string>
 			<key>IDESourceControlWCCName</key>
-			<string>EmojiKeyBoard</string>
+			<string>AGEmojiKeyboard</string>
 		</dict>
 	</array>
 </dict>
