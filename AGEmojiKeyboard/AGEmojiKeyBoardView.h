@@ -76,6 +76,28 @@ typedef NS_ENUM(NSInteger, AGEmojiKeyboardViewCategoryImage) {
  */
 - (UIImage *)backSpaceButtonImageForEmojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView;
 
+@optional
+
+/**
+ Method called on dataSource to get category that should be shown by
+ default i.e. when the keyboard is just presented.
+
+ @note By default `AGEmojiKeyboardViewCategoryImageRecent` is shown.
+
+ @param emojiKeyBoardView EmojiKeyBoardView object shown.
+ */
+- (AGEmojiKeyboardViewCategoryImage)defaultCategoryForEmojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView;
+
+/**
+ Method called on dataSource to get number of emojis to be maintained in
+ recent category.
+
+ @note By default `50` is used.
+
+ @param emojiKeyBoardView EmojiKeyBoardView object shown.
+ */
+- (NSUInteger)recentEmojisMaintainedCountForEmojiKeyboardView:(AGEmojiKeyboardView *)emojiKeyboardView;
+
 @end
 
 

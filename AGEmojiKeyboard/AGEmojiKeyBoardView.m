@@ -9,12 +9,10 @@
 #import "AGEmojiKeyBoardView.h"
 #import "AGEmojiPageView.h"
 
-#define BUTTON_WIDTH 45
-#define BUTTON_HEIGHT 37
+static const CGFloat ButtonWidth = 45;
+static const CGFloat ButtonHeight = 37;
 
-#define DEFAULT_SELECTED_SEGMENT 0
-#define PAGE_CONTROL_INDICATOR_DIAMETER 6.0
-#define RECENT_EMOJIS_MAINTAINED_COUNT 50
+static const NSUInteger DefaultRecentEmojisMaintainedCount = 50;
 
 static NSString *const segmentRecentName = @"Recent";
 NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
@@ -46,6 +44,20 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 - (NSString *)categoryNameAtIndex:(NSUInteger)index {
   NSArray *categoryList = @[segmentRecentName, @"People", @"Objects", @"Nature", @"Places", @"Symbols"];
   return categoryList[index];
+}
+
+- (AGEmojiKeyboardViewCategoryImage)defaultSelectedCategory {
+  if ([self.dataSource respondsToSelector:@selector(defaultCategoryForEmojiKeyboardView:)]) {
+    return [self.dataSource defaultCategoryForEmojiKeyboardView:self];
+  }
+  return AGEmojiKeyboardViewCategoryImageRecent;
+}
+
+- (NSUInteger)recentEmojisMaintainedCount {
+  if ([self.dataSource respondsToSelector:@selector(recentEmojisMaintainedCountForEmojiKeyboardView:)]) {
+    return [self.dataSource recentEmojisMaintainedCountForEmojiKeyboardView:self];
+  }
+  return DefaultRecentEmojisMaintainedCount;
 }
 
 - (NSArray *)imagesForSelectedSegments {
@@ -88,8 +100,8 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 - (void)setRecentEmojis:(NSMutableArray *)recentEmojis {
   // remove emojis if they cross the cache maintained limit
-  if ([recentEmojis count] > RECENT_EMOJIS_MAINTAINED_COUNT) {
-    NSIndexSet *indexesToBeRemoved = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(RECENT_EMOJIS_MAINTAINED_COUNT, [recentEmojis count] - RECENT_EMOJIS_MAINTAINED_COUNT)];
+  if ([recentEmojis count] > self.recentEmojisMaintainedCount) {
+    NSIndexSet *indexesToBeRemoved = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.recentEmojisMaintainedCount, [recentEmojis count] - self.recentEmojisMaintainedCount)];
     [recentEmojis removeObjectsAtIndexes:indexesToBeRemoved];
   }
   [[NSUserDefaults standardUserDefaults] setObject:recentEmojis forKey:RecentUsedEmojiCharactersKey];
@@ -102,15 +114,15 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
     _dataSource = dataSource;
 
-    self.category = [self categoryNameAtIndex:DEFAULT_SELECTED_SEGMENT];
+    self.category = [self categoryNameAtIndex:self.defaultSelectedCategory];
 
     self.segmentsBar = [[UISegmentedControl alloc] initWithItems:self.imagesForSelectedSegments];
     self.segmentsBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.segmentsBar.bounds));
     self.segmentsBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     [self.segmentsBar addTarget:self action:@selector(categoryChangedViaSegmentsBar:) forControlEvents:UIControlEventValueChanged];
-    [self setSelectedCategoryImageInSegmentControl:self.segmentsBar AtIndex:DEFAULT_SELECTED_SEGMENT];
-    self.segmentsBar.selectedSegmentIndex = DEFAULT_SELECTED_SEGMENT;
+    [self setSelectedCategoryImageInSegmentControl:self.segmentsBar AtIndex:self.defaultSelectedCategory];
+    self.segmentsBar.selectedSegmentIndex = self.defaultSelectedCategory;
     [self addSubview:self.segmentsBar];
 
     self.pageControl = [[UIPageControl alloc] init];
@@ -231,7 +243,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   NSUInteger columns = [self numberOfColumnsForFrameSize:self.scrollView.bounds.size];
   AGEmojiPageView *pageView = [[AGEmojiPageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), CGRectGetHeight(self.scrollView.bounds))
                                                 backSpaceButtonImage:[self.dataSource backSpaceButtonImageForEmojiKeyboardView:self]
-                                                          buttonSize:CGSizeMake(BUTTON_WIDTH, BUTTON_HEIGHT)
+                                                          buttonSize:CGSizeMake(ButtonWidth, ButtonHeight)
                                                                 rows:rows
                                                              columns:columns];
   pageView.delegate = self;
@@ -299,11 +311,11 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 #pragma mark data methods
 
 - (NSUInteger)numberOfColumnsForFrameSize:(CGSize)frameSize {
-  return (NSUInteger)floor(frameSize.width / BUTTON_WIDTH);
+  return (NSUInteger)floor(frameSize.width / ButtonWidth);
 }
 
 - (NSUInteger)numberOfRowsForFrameSize:(CGSize)frameSize {
-  return (NSUInteger)floor(frameSize.height / BUTTON_HEIGHT);
+  return (NSUInteger)floor(frameSize.height / ButtonHeight);
 }
 
 - (NSArray *)emojiListForCategory:(NSString *)category {
