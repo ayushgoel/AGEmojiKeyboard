@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>72291C05-3F5B-4C54-91BC-3965E50EA1D5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AGEmojiKeyboardSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5B591E1B-1442-42D6-98A9-8E83260D1EBF</key>
+		<string>ssh://github.com/ayushgoel/AGEmojiKeyboard.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Example/AGEmojiKeyboardSample.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5B591E1B-1442-42D6-98A9-8E83260D1EBF</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/ayushgoel/AGEmojiKeyboard.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5B591E1B-1442-42D6-98A9-8E83260D1EBF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5B591E1B-1442-42D6-98A9-8E83260D1EBF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AGEmojiKeyboard</string>
+		</dict>
+	</array>
+</dict>
+</plist>

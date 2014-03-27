@@ -2,5 +2,5 @@
 *.pbxuser
 /build
 xcuserdata
-*.xcworkspace
+*.lock
 
