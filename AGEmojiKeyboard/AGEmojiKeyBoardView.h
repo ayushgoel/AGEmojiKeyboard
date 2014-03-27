@@ -32,13 +32,14 @@ typedef NS_ENUM(NSInteger, AGEmojiKeyboardViewCategoryImage) {
 @property (nonatomic, weak) id<AGEmojiKeyboardViewDelegate> delegate;
 @property (nonatomic, weak) id<AGEmojiKeyboardViewDataSource> dataSource;
 
-- (id)initWithFrame:(CGRect)frame dataSource:(id<AGEmojiKeyboardViewDataSource>)dataSource;
 /**
  @param frame Frame of the view to be initialised with.
 
  @param dataSource dataSource is required during the initialization to
  get all the relevent images to present in the view.
  */
+- (instancetype)initWithFrame:(CGRect)frame
+                   dataSource:(id<AGEmojiKeyboardViewDataSource>)dataSource;
 
 @end
 
