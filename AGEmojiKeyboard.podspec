@@ -20,4 +20,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'AGEmojiKeyboard/*.{h,m}'
+  s.resources = 'Resources/*.plist'
 end
