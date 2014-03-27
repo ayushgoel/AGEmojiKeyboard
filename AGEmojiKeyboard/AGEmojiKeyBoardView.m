@@ -182,22 +182,10 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 #pragma mark event handlers
 
 - (void)setSelectedCategoryImageInSegmentControl:(UISegmentedControl *)segmentsBar AtIndex:(NSInteger)index {
-  NSArray *imagesForSelectedSegments = @[[UIImage imageNamed:@"recent_s.png"],
-                                         [UIImage imageNamed:@"face_s.png"],
-                                         [UIImage imageNamed:@"bell_s.png"],
-                                         [UIImage imageNamed:@"flower_s.png"],
-                                         [UIImage imageNamed:@"car_s.png"],
-                                         [UIImage imageNamed:@"characters_s.png"]];
-  NSArray *imagesForNonSelectedSegments = @[[UIImage imageNamed:@"recent_n.png"],
-                                            [UIImage imageNamed:@"face_n.png"],
-                                            [UIImage imageNamed:@"bell_n.png"],
-                                            [UIImage imageNamed:@"flower_n.png"],
-                                            [UIImage imageNamed:@"car_n.png"],
-                                            [UIImage imageNamed:@"characters_n.png"]];
   for (int i=0; i < self.segmentsBar.numberOfSegments; ++i) {
-    [segmentsBar setImage:imagesForNonSelectedSegments[i] forSegmentAtIndex:i];
+    [segmentsBar setImage:self.imagesForNonSelectedSegments[i] forSegmentAtIndex:i];
   }
-  [segmentsBar setImage:imagesForSelectedSegments[index] forSegmentAtIndex:index];
+  [segmentsBar setImage:self.imagesForSelectedSegments[index] forSegmentAtIndex:index];
 }
 
 - (void)categoryChangedViaSegmentsBar:(UISegmentedControl *)sender {
