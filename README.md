@@ -16,11 +16,23 @@ To run the example project; clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
+# Via Cocoapods
+
 AGEmojiKeyboard is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile:
 
     platform :ios, '7.0'
     pod "AGEmojiKeyboard", "~> 0.1.0"
+
+# The old way
+
+Copy the classes in AGEmojiKeyboard/ and resources in Resources/ to your project. Look at the Example/ folder to see how the classes are used for more detail.
+```objective-c
+AGEmojiKeyboardView *emojiKeyboardView = [[AGEmojiKeyboardView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 216) dataSource:self];
+emojiKeyboardView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+emojiKeyboardView.delegate = self;
+textView.inputView = emojiKeyboardView;
+```
 
 ## Author
 
