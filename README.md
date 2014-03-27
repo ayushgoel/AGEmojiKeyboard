@@ -1,4 +1,4 @@
-iOS-emoji-keyboard
+AGEmojiKeyboard
 ==================
 
 [![Version](http://cocoapod-badges.herokuapp.com/v/AGEmojiKeyboard/badge.png)](http://cocoadocs.org/docsets/AGEmojiKeyboard)
