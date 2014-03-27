@@ -261,7 +261,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   AGEmojiPageView *pageView = nil;
   for (AGEmojiPageView *page in self.pageViews) {
     NSUInteger pageNumber = page.frame.origin.x / CGRectGetWidth(self.scrollView.bounds);
-    if (abs(pageNumber - self.pageControl.currentPage) > 1) {
+    if (abs((int)(pageNumber - self.pageControl.currentPage)) > 1) {
       pageView = page;
       break;
     }
