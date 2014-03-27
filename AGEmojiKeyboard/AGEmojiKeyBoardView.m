@@ -181,7 +181,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 - (void)categoryChangedViaSegmentsBar:(UISegmentedControl *)sender {
   // recalculate number of pages for new category and recreate emoji pages
-  NSLog(@"%d", sender.selectedSegmentIndex);
+  NSLog(@"%@", @( sender.selectedSegmentIndex ));
 
   self.category = [self categoryNameAtIndex:sender.selectedSegmentIndex];
   [self setSelectedCategoryImageInSegmentControl:sender AtIndex:sender.selectedSegmentIndex];
@@ -193,7 +193,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 }
 
 - (void)pageControlTouched:(UIPageControl *)sender {
-  NSLog(@"%d", sender.currentPage);
+  NSLog(@"%@", @( sender.currentPage ));
   CGRect bounds = self.scrollView.bounds;
   bounds.origin.x = CGRectGetWidth(bounds) * sender.currentPage;
   bounds.origin.y = 0;
@@ -278,7 +278,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   NSMutableArray *buttonTexts = [self emojiTextsForCategory:self.category
                                                   fromIndex:startingIndex
                                                     toIndex:endingIndex];
-  NSLog(@"Setting page at index %d", index);
+  NSLog(@"Setting page at index %@", @( index ));
   [pageView setButtonTexts:buttonTexts];
   pageView.frame = CGRectMake(index * CGRectGetWidth(scrollView.bounds), 0, CGRectGetWidth(scrollView.bounds), CGRectGetHeight(scrollView.bounds));
 }
@@ -329,7 +329,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   NSUInteger numberOfEmojisOnAPage = (numberOfRows * numberOfColumns) - 1;
 
   NSUInteger numberOfPages = (NSUInteger)ceil((float)emojiCount / numberOfEmojisOnAPage);
-  NSLog(@"%d %d %d :: %d", numberOfRows, numberOfColumns, emojiCount, numberOfPages);
+  NSLog(@"%@ %@ %@ :: %@", @( numberOfRows ), @( numberOfColumns ), @( emojiCount ), @( numberOfPages ));
   return numberOfPages;
 }
 
