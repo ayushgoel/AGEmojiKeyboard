@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UoI-fw-N3K">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -26,10 +26,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="UoI-fw-N3K" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="2hV-yQ-Nn8"/>
                             <constraint firstItem="UoI-fw-N3K" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="5w0-wy-s7k"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="UoI-fw-N3K" secondAttribute="bottom" id="Asn-kQ-2rY"/>
                             <constraint firstAttribute="trailing" secondItem="UoI-fw-N3K" secondAttribute="trailing" id="odX-nL-wQe"/>
-                            <constraint firstItem="UoI-fw-N3K" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="vdN-HD-8kg"/>
                         </constraints>
                     </view>
                     <connections>
