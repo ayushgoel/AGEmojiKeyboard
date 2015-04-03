@@ -83,7 +83,9 @@
                                            [self YMarginForButtonInRow:row],
                                            self.buttonSize.width,
                                            self.buttonSize.height));
-  [button addTarget:self action:@selector(emojiButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+  [button addTarget:self
+             action:@selector(emojiButtonPressed:)
+   forControlEvents:UIControlEventTouchUpInside];
   return button;
 }
 
