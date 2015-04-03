@@ -105,11 +105,9 @@ backSpaceButtonImage:(UIImage *)backSpaceButtonImage
 
 - (void)emojiButtonPressed:(UIButton *)button {
   if (button.tag == BACKSPACE_BUTTON_TAG) {
-    NSLog(@"Back space pressed");
     [self.delegate emojiPageViewDidPressBackSpace:self];
     return;
   }
-  NSLog(@"%@", button.titleLabel.text);
   [self.delegate emojiPageView:self didUseEmoji:button.titleLabel.text];
 }
 
