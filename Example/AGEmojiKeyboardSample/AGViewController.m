@@ -17,8 +17,7 @@
 
 @implementation AGViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 
 
