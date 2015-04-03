@@ -121,7 +121,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
     self.segmentsBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     [self.segmentsBar addTarget:self action:@selector(categoryChangedViaSegmentsBar:) forControlEvents:UIControlEventValueChanged];
-    [self setSelectedCategoryImageInSegmentControl:self.segmentsBar AtIndex:self.defaultSelectedCategory];
+    [self setSelectedCategoryImageInSegmentControl:self.segmentsBar atIndex:self.defaultSelectedCategory];
     self.segmentsBar.selectedSegmentIndex = self.defaultSelectedCategory;
     [self addSubview:self.segmentsBar];
 
@@ -184,7 +184,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 #pragma mark event handlers
 
-- (void)setSelectedCategoryImageInSegmentControl:(UISegmentedControl *)segmentsBar AtIndex:(NSInteger)index {
+- (void)setSelectedCategoryImageInSegmentControl:(UISegmentedControl *)segmentsBar atIndex:(NSInteger)index {
   for (int i=0; i < self.segmentsBar.numberOfSegments; ++i) {
     [segmentsBar setImage:self.imagesForNonSelectedSegments[i] forSegmentAtIndex:i];
   }
@@ -196,7 +196,7 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
   NSLog(@"%@", @( sender.selectedSegmentIndex ));
 
   self.category = [self categoryNameAtIndex:sender.selectedSegmentIndex];
-  [self setSelectedCategoryImageInSegmentControl:sender AtIndex:sender.selectedSegmentIndex];
+  [self setSelectedCategoryImageInSegmentControl:sender atIndex:sender.selectedSegmentIndex];
   self.pageControl.currentPage = 0;
   [self setNeedsLayout];
 }
