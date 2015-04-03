@@ -25,9 +25,26 @@ typedef NS_ENUM(NSInteger, AGEmojiKeyboardViewCategoryImage) {
 /**
  Keyboard class to present as an alternate.
  This keyboard presents the emojis supported by iOS.
+
+ @note To modify appearance, use @p segmentsBar @p pageControl
+ @p emojiPagesScrollView properties.
  */
 @interface AGEmojiKeyboardView : UIView
 
+/**
+ Segment control displays the categories.
+ */
+@property (nonatomic, readonly) UISegmentedControl *segmentsBar;
+
+/**
+ Pagecontrol displays the current page and number of pages on an emoji page.
+ */
+@property (nonatomic, readonly) UIPageControl *pageControl;
+
+/**
+ Scroll view displays all the emoji pages.
+ */
+@property (nonatomic, readonly) UIScrollView *emojiPagesScrollView;
 
 @property (nonatomic, weak) id<AGEmojiKeyboardViewDelegate> delegate;
 @property (nonatomic, weak) id<AGEmojiKeyboardViewDataSource> dataSource;
