@@ -10,29 +10,29 @@
 	<string>AGEmojiKeyboardSample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>5B591E1B-1442-42D6-98A9-8E83260D1EBF</key>
+		<key>8CF5460557648D13B7277E1AF023F9B3FE5A7FF9</key>
 		<string>ssh://github.com/ayushgoel/AGEmojiKeyboard.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Example/AGEmojiKeyboardSample.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>5B591E1B-1442-42D6-98A9-8E83260D1EBF</key>
+		<key>8CF5460557648D13B7277E1AF023F9B3FE5A7FF9</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/ayushgoel/AGEmojiKeyboard.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>5B591E1B-1442-42D6-98A9-8E83260D1EBF</string>
+	<string>8CF5460557648D13B7277E1AF023F9B3FE5A7FF9</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>5B591E1B-1442-42D6-98A9-8E83260D1EBF</string>
+			<string>8CF5460557648D13B7277E1AF023F9B3FE5A7FF9</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AGEmojiKeyboard</string>
 		</dict>
