@@ -1,8 +1,9 @@
 AGEmojiKeyboard
 ==================
 
-[![Version](http://cocoapod-badges.herokuapp.com/v/AGEmojiKeyboard/badge.png)](http://cocoadocs.org/docsets/AGEmojiKeyboard)
-[![Platform](http://cocoapod-badges.herokuapp.com/p/AGEmojiKeyboard/badge.png)](http://cocoadocs.org/docsets/AGEmojiKeyboard)
+[![Version](https://img.shields.io/cocoapods/v/AGEmojiKeyboard.svg)](http://cocoapods.org/pods/AGEmojiKeyboard)
+[![License](https://img.shields.io/cocoapods/l/AGEmojiKeyboard.svg)](http://cocoadocs.org/docsets/AGEmojiKeyboard/0.1.0/)
+[![Platform](https://img.shields.io/cocoapods/p/AGEmojiKeyboard.svg)](http://cocoadocs.org/docsets/AGEmojiKeyboard/0.1.0/)
 
 An alternate keyboard for iOS that displays all the emojis supported by iOS.
 
