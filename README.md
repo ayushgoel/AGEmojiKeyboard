@@ -17,7 +17,7 @@ To run the example project; clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-### Via Cocoapods
+### Via CocoaPods
 
 AGEmojiKeyboard is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile:
