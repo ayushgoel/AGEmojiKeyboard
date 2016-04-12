@@ -1,48 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6kk-RK-IqJ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="ufC-wZ-h7g">
+        <scene sceneID="6EB-jJ-0DG">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="AGViewController" sceneMemberID="viewController">
+                <viewController id="6kk-RK-IqJ" customClass="AGViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                        <viewControllerLayoutGuide type="top" id="4Fa-5j-JJE"/>
+                        <viewControllerLayoutGuide type="bottom" id="ipX-Y6-vfz"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="view" contentMode="scaleToFill" id="nB5-oJ-XMh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UoI-fw-N3K">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ddt-mK-PyI">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UoI-fw-N3K" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="2hV-yQ-Nn8"/>
-                            <constraint firstItem="UoI-fw-N3K" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="5w0-wy-s7k"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="UoI-fw-N3K" secondAttribute="bottom" id="Asn-kQ-2rY"/>
-                            <constraint firstAttribute="trailing" secondItem="UoI-fw-N3K" secondAttribute="trailing" id="odX-nL-wQe"/>
+                            <constraint firstAttribute="trailing" secondItem="Ddt-mK-PyI" secondAttribute="trailing" id="aR4-r1-zhO"/>
+                            <constraint firstItem="Ddt-mK-PyI" firstAttribute="top" secondItem="4Fa-5j-JJE" secondAttribute="bottom" id="b3D-sB-XOL"/>
+                            <constraint firstItem="Ddt-mK-PyI" firstAttribute="leading" secondItem="nB5-oJ-XMh" secondAttribute="leading" id="cxI-fO-cyU"/>
+                            <constraint firstItem="ipX-Y6-vfz" firstAttribute="top" secondItem="Ddt-mK-PyI" secondAttribute="bottom" id="wCq-pe-yuy"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="textView" destination="UoI-fw-N3K" id="CQ1-dH-1Cb"/>
+                        <outlet property="textView" destination="Ddt-mK-PyI" id="Gte-SQ-Ws2"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BZB-7W-50y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="590" y="344"/>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
