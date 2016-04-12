@@ -6,9 +6,9 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   AGEmojiKeyboard:
-    :path: ../AGEmojiKeyboard.podspec
+    :path: "../AGEmojiKeyboard.podspec"
 
 SPEC CHECKSUMS:
-  AGEmojiKeyboard: 0824b5e89ff1b0826598346e5176331ed5e1d0c8
+  AGEmojiKeyboard: efcb7244ace99deb8eb2c63867ffad198d219fe0
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.38.2
