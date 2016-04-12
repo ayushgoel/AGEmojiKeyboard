@@ -33,8 +33,9 @@ NSString *const RecentUsedEmojiCharactersKey = @"RecentUsedEmojiCharactersKey";
 
 - (NSDictionary *)emojis {
   if (!_emojis) {
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"EmojisList"
-                                                          ofType:@"plist"];
+    NSBundle *selfBundle = [NSBundle bundleForClass:[self class]];
+    NSString *plistPath = [selfBundle pathForResource:@"EmojisList"
+                                               ofType:@"plist"];
     _emojis = [[NSDictionary dictionaryWithContentsOfFile:plistPath] copy];
   }
   return _emojis;
