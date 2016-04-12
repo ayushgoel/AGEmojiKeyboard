@@ -21,6 +21,7 @@
 		2A144F0118DF4177008B3726 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A144EE318DF4177008B3726 /* UIKit.framework */; };
 		2A144F0918DF4177008B3726 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A144F0718DF4177008B3726 /* InfoPlist.strings */; };
 		2A144F0B18DF4177008B3726 /* AGEmojiKeyboardSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A144F0A18DF4177008B3726 /* AGEmojiKeyboardSampleTests.m */; };
+		8ED626161CBD751A001A00FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ED626141CBD751A001A00FF /* LaunchScreen.storyboard */; };
 		C39A9E3FDA9F4C53BC9A6EB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF93881C335444918F70106B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		2A144F0818DF4177008B3726 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2A144F0A18DF4177008B3726 /* AGEmojiKeyboardSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGEmojiKeyboardSampleTests.m; sourceTree = "<group>"; };
 		3C63CDF96896E2DC43C19055 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8ED626151CBD751A001A00FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF7D886CD459EAB7E0541A7E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		EF93881C335444918F70106B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -122,6 +124,7 @@
 				2A144EEE18DF4177008B3726 /* AGAppDelegate.h */,
 				2A144EEF18DF4177008B3726 /* AGAppDelegate.m */,
 				2A144EF118DF4177008B3726 /* Main.storyboard */,
+				8ED626141CBD751A001A00FF /* LaunchScreen.storyboard */,
 				2A144EF418DF4177008B3726 /* AGViewController.h */,
 				2A144EF518DF4177008B3726 /* AGViewController.m */,
 				2A144EF718DF4177008B3726 /* Images.xcassets */,
@@ -248,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A144EF818DF4177008B3726 /* Images.xcassets in Resources */,
+				8ED626161CBD751A001A00FF /* LaunchScreen.storyboard in Resources */,
 				2A144EEA18DF4177008B3726 /* InfoPlist.strings in Resources */,
 				2A144EF318DF4177008B3726 /* Main.storyboard in Resources */,
 			);
@@ -350,6 +354,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		8ED626141CBD751A001A00FF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8ED626151CBD751A001A00FF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -429,7 +441,6 @@
 			baseConfigurationReference = BF7D886CD459EAB7E0541A7E /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AGEmojiKeyboardSample/AGEmojiKeyboardSample-Prefix.pch";
 				INFOPLIST_FILE = "AGEmojiKeyboardSample/AGEmojiKeyboardSample-Info.plist";
@@ -444,7 +455,6 @@
 			baseConfigurationReference = 3C63CDF96896E2DC43C19055 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AGEmojiKeyboardSample/AGEmojiKeyboardSample-Prefix.pch";
 				INFOPLIST_FILE = "AGEmojiKeyboardSample/AGEmojiKeyboardSample-Info.plist";
