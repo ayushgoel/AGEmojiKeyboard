@@ -22,6 +22,8 @@ To run the example project:
 3. Open `AGEmojiKeyboardSample.xcworkspace` placed in [Example][Example] folder.
 4. Run.
 
+-
+
 ![Example Preview](ExamplePreview.png)
 
 ## Installation
