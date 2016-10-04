@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "AGEmojiKeyboard"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "An emoji keyboard view that can replace the default iOS keyboard."
   s.description      = <<-DESC
                        AGEmojiKeyboard is a replacement view for the default keyboard 
