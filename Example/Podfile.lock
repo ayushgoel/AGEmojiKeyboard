@@ -1,5 +1,5 @@
 PODS:
-  - AGEmojiKeyboard (0.2.0)
+  - AGEmojiKeyboard (0.2.1)
 
 DEPENDENCIES:
   - AGEmojiKeyboard (from `../AGEmojiKeyboard.podspec`)
@@ -9,6 +9,8 @@ EXTERNAL SOURCES:
     :path: "../AGEmojiKeyboard.podspec"
 
 SPEC CHECKSUMS:
-  AGEmojiKeyboard: efcb7244ace99deb8eb2c63867ffad198d219fe0
+  AGEmojiKeyboard: d5a01a4b0de30e1f1c2a121503ac36a79c7217ab
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: 1e848428fa79a50a1ec19ef1b46015c1b01db969
+
+COCOAPODS: 1.2.0

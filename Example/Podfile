@@ -1,3 +1,5 @@
 platform :ios, '7.0'
 
-pod "AGEmojiKeyboard", :path => "../AGEmojiKeyboard.podspec"
+target 'AGEmojiKeyboardSample' do
+    pod "AGEmojiKeyboard", :path => "../AGEmojiKeyboard.podspec"
+end

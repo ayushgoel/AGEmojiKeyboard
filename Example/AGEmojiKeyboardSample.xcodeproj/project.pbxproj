@@ -22,7 +22,7 @@
 		2A144F0918DF4177008B3726 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A144F0718DF4177008B3726 /* InfoPlist.strings */; };
 		2A144F0B18DF4177008B3726 /* AGEmojiKeyboardSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A144F0A18DF4177008B3726 /* AGEmojiKeyboardSampleTests.m */; };
 		8ED626161CBD751A001A00FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ED626141CBD751A001A00FF /* LaunchScreen.storyboard */; };
-		C39A9E3FDA9F4C53BC9A6EB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF93881C335444918F70106B /* libPods.a */; };
+		D81E290B5487BF56B5CA7176 /* libPods-AGEmojiKeyboardSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE61C6F8D9CD04DD984224A3 /* libPods-AGEmojiKeyboardSample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +55,10 @@
 		2A144F0618DF4177008B3726 /* AGEmojiKeyboardSampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AGEmojiKeyboardSampleTests-Info.plist"; sourceTree = "<group>"; };
 		2A144F0818DF4177008B3726 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2A144F0A18DF4177008B3726 /* AGEmojiKeyboardSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGEmojiKeyboardSampleTests.m; sourceTree = "<group>"; };
-		3C63CDF96896E2DC43C19055 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		50B39D0D771BBDD9BBCF6142 /* Pods-AGEmojiKeyboardSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGEmojiKeyboardSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AGEmojiKeyboardSample/Pods-AGEmojiKeyboardSample.debug.xcconfig"; sourceTree = "<group>"; };
 		8ED626151CBD751A001A00FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BF7D886CD459EAB7E0541A7E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		EF93881C335444918F70106B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE61C6F8D9CD04DD984224A3 /* libPods-AGEmojiKeyboardSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AGEmojiKeyboardSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEF19BBBBFCDCA2D456F8866 /* Pods-AGEmojiKeyboardSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGEmojiKeyboardSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-AGEmojiKeyboardSample/Pods-AGEmojiKeyboardSample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 				2A144EE218DF4177008B3726 /* CoreGraphics.framework in Frameworks */,
 				2A144EE418DF4177008B3726 /* UIKit.framework in Frameworks */,
 				2A144EE018DF4177008B3726 /* Foundation.framework in Frameworks */,
-				C39A9E3FDA9F4C53BC9A6EB8 /* libPods.a in Frameworks */,
+				D81E290B5487BF56B5CA7176 /* libPods-AGEmojiKeyboardSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,7 @@
 				2A144F0418DF4177008B3726 /* AGEmojiKeyboardSampleTests */,
 				2A144EDE18DF4177008B3726 /* Frameworks */,
 				2A144EDD18DF4177008B3726 /* Products */,
-				79E276E3940D2A85EE0CB99D /* Pods */,
+				D091B2D51D97B16E55746A79 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,7 +113,7 @@
 				2A144EE118DF4177008B3726 /* CoreGraphics.framework */,
 				2A144EE318DF4177008B3726 /* UIKit.framework */,
 				2A144EFE18DF4177008B3726 /* XCTest.framework */,
-				EF93881C335444918F70106B /* libPods.a */,
+				CE61C6F8D9CD04DD984224A3 /* libPods-AGEmojiKeyboardSample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -162,11 +162,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		79E276E3940D2A85EE0CB99D /* Pods */ = {
+		D091B2D51D97B16E55746A79 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BF7D886CD459EAB7E0541A7E /* Pods.debug.xcconfig */,
-				3C63CDF96896E2DC43C19055 /* Pods.release.xcconfig */,
+				50B39D0D771BBDD9BBCF6142 /* Pods-AGEmojiKeyboardSample.debug.xcconfig */,
+				DEF19BBBBFCDCA2D456F8866 /* Pods-AGEmojiKeyboardSample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -178,11 +178,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A144F0E18DF4177008B3726 /* Build configuration list for PBXNativeTarget "AGEmojiKeyboardSample" */;
 			buildPhases = (
-				6E8A9E9653724A5E95632B68 /* Check Pods Manifest.lock */,
+				35A9F1090B4CD6A79D2256BF /* [CP] Check Pods Manifest.lock */,
 				2A144ED818DF4177008B3726 /* Sources */,
 				2A144ED918DF4177008B3726 /* Frameworks */,
 				2A144EDA18DF4177008B3726 /* Resources */,
-				6BCF2616BA634A93ABAE5FF4 /* Copy Pods Resources */,
+				BE7DABC069A4E81134575BC3 /* [CP] Embed Pods Frameworks */,
+				9F5C650D946C47040CA39C95 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,34 +269,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6BCF2616BA634A93ABAE5FF4 /* Copy Pods Resources */ = {
+		35A9F1090B4CD6A79D2256BF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6E8A9E9653724A5E95632B68 /* Check Pods Manifest.lock */ = {
+		9F5C650D946C47040CA39C95 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AGEmojiKeyboardSample/Pods-AGEmojiKeyboardSample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE7DABC069A4E81134575BC3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AGEmojiKeyboardSample/Pods-AGEmojiKeyboardSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -438,7 +454,7 @@
 		};
 		2A144F0F18DF4177008B3726 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BF7D886CD459EAB7E0541A7E /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 50B39D0D771BBDD9BBCF6142 /* Pods-AGEmojiKeyboardSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -452,7 +468,7 @@
 		};
 		2A144F1018DF4177008B3726 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C63CDF96896E2DC43C19055 /* Pods.release.xcconfig */;
+			baseConfigurationReference = DEF19BBBBFCDCA2D456F8866 /* Pods-AGEmojiKeyboardSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
