@@ -18,7 +18,7 @@
  Creates and returns an EmojiPageView
 
  @param backSpaceButtonImage Imge to be used to present the back space button.
- @param buttonsSize Size for the button representing a single emoji
+ @param buttonSize Size for the button representing a single emoji
  @param rows Number of rows in a single EmojiPageView
  @param columns Number of columns in a single EmojiPageView. Also represents the number of emojis shown in a row.
 
